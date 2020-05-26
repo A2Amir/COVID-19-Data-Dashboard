@@ -6,9 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet"
+          href="https://bootstrapformhelpers.com/assets/css/bootstrap-formhelpers.min.css"/>
+    <script src="https://bootstrapformhelpers.com/assets/js/bootstrap-formhelpers.min.js"></script>
+
+
+
+
+
+
+
+    <script src="interaction.js"> </script>
+
+
     <title>Data Dashboard</title>
+
   </head>
+
   <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -38,15 +60,15 @@
       <div class="col-1 border-right">
 
         <a href="https://www.linkedin.com">
-          <img class="mb-3 img-fluid" src="imgs/linkedinlogo.png" alt="linkedin logo">
+          <img class="mb-3 img-fluid" src="assets/imgs/linkedinlogo.png" alt="linkedin logo">
         </a>
 
         <a href="https://www.github.com">
-          <img class="mb-3 img-fluid " src="imgs/githublogo.png" alt="github logo">
+          <img class="mb-3 img-fluid " src="assets/imgs/githublogo.png" alt="github logo">
         </a>
 
         <a href="https://www.instagram.com">
-          <img class="mb-3 img-fluid " src="imgs/instagram.png" alt="instagram logo">
+          <img class="mb-3 img-fluid " src="assets/imgs/instagram.png" alt="instagram logo">
         </a>
 
       </div>
@@ -55,26 +77,66 @@
           <h2>World Bank Data Dashboard</h2>
           <h4 class="text-muted">Land Use Visualizations</h4>
 
+
+          <div class="container-fluid mt-5 ml-1 mr-5 ">
+
+            <div class="row mb-3">
+              <div class="col-4">
+                First Date:
+                <div class="bfh-datepicker" data-format="y-m-d" data-date="today">  </div>
+              </div>
+              <div class="col-4">
+                Last Date:
+                <div class="bfh-datepicker" data-format="y-m-d" data-date="today">  </div>
+              </div>
+              <div class="col-4">
+                Country:
+                <div id="countries_states2" class="bfh-selectbox bfh-countries" data-country="US" data-flags="true">
+                  <input type="hidden" value="">
+                  <a class="bfh-selectbox-toggle" role="button" data-toggle="bfh-selectbox" href="#">
+                    <span class="bfh-selectbox-option input-medium" data-option=""></span>
+                    <b class="caret"></b>
+                  </a>
+                  <div class="bfh-selectbox-options">
+                  <div role="listbox">
+                    <ul role="option">
+                    </ul>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+
+
+          </div>
+
+
+
+
+
         <div class="container-fluid mt-5 ">
 
           <div class="row mb-3">
             <div class="col-4">
-              <img class="img-fluid" src="imgs/plot1.png" alt="chart one">
+              <img class="img-fluid" src="assets/imgs/plot1.png" alt="chart one">
             </div>
             <div class="col-4">
-              <img class="img-fluid" src="imgs/plot2.png" alt="chart two">
+              <img class="img-fluid" src="assets/imgs/plot2.png" alt="chart two">
             </div>
             <div class="col-4">
-              <img class="img-fluid" src="imgs/plot3.png" alt="chart three">
+              <img class="img-fluid" src="assets/imgs/plot3.png" alt="chart three" >
             </div>
           </div>
 
           <div class="row">
             <div class="col-6">
-              <img class="img-fluid pl-3" src="imgs/plot4.png" alt="chart four">
+              <img class="img-fluid pl-3" src="assets/imgs/plot4.png" alt="chart four">
             </div>
             <div class="col-6">
-              <img class="img-fluid pl-3" src="imgs/plot5.png" alt="chart five">
+              <img class="img-fluid pl-3" src="assets/imgs/plot5.png" alt="chart five">
             </div>
           </div>
 
@@ -83,10 +145,7 @@
 
     </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
   </body>
 </html>
