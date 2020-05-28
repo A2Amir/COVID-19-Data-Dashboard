@@ -36,7 +36,7 @@ def get_dataset():
 # In[214]:
 
 
-df
+
 
 
 # In[191]:
