@@ -1,8 +1,8 @@
 from covidapp import app
 from flask import render_template
-from scripts.wrangle_data import get_dataset
-from scripts.wrangle_data import filter_data
-from scripts.wrangle_data import return_figures
+from wrangling_scripts.wrangle_data import get_dataset
+from wrangling_scripts.wrangle_data import filter_data
+from wrangling_scripts.wrangle_data import return_figures
 
 import json, plotly
 
@@ -10,8 +10,10 @@ import json, plotly
 @app.route('/index')
 def index():
 
-    figures = return_figures()
-
+    dataset = get_dataset()
+    dates=[dataset.index.min(), dataset.index.max()]
+    filter_df = filter_data(dataset, country_name = 'United_States_of_America', date =dates)
+    figures= return_figures(dataset,filter_df)
     # plot ids for the html id tag
     ids = ['figure-{}'.format(i) for i,_ in enumerate(figures)]
 

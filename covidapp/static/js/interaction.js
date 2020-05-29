@@ -13,12 +13,6 @@ var checkin = $('#txtCheckIn').datepicker({
   });
 });
 
-// plots the figure with id
-// id must match the div id above in the html
-var figures = {{figuresJSON | safe}};
-var ids = {{ids | safe}};
-for(var i in figures) {
-      Plotly.plot(ids[i],
-      figures[i].data,
-      figures[i].layout || {});
-}
+Plotly.setPlotConfig({
+   mapboxAccessToken: "pk.eyJ1IjoiYW1pcnppYWVlIiwiYSI6ImNrYXNlZXd4eDBpcXAzMG1zOTR1NWt2bzUifQ.9vOmF1-LoxDggkQshH6sbQ"
+ });

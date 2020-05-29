@@ -1,147 +1,127 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
 
+<title>World Bank Data Dashboard</title>
 
+<!--import script files needed from plotly and bootstrap-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
-    <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<!-- interaction code   JS-->
+<script src="../static/js/interaction.js"> </script>
 
-    <!-- Bootstrap  JS CSS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
 
-    <!-- bootstrap-formhelpers CSS  JS-->
-    <link rel="stylesheet"  href="https://bootstrapformhelpers.com/assets/css/bootstrap-formhelpers.min.css"/>
-    <script src="https://bootstrapformhelpers.com/assets/js/bootstrap-formhelpers.min.js"></script>
+<body>
 
-    <!-- datepicker  CSS  JS-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+<!--navbar links-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+   <a class="navbar-brand" href="#">World Bank Dashboard</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse"
+  data-target="#navbarTogglerDemo02"
+  aria-controls="navbarTogglerDemo02" aria-expanded="false"
+  aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-    <!-- CSS code   css-->
-    <link rel="stylesheet" href="../static/css/form.css">
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="https://www.udacity.com">Udacity</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://data.worldbank.org/">World Bank Data</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 
-    <!-- interaction code   JS-->
-    <script src="../static/js/interaction.js"> </script>
+<!--middle section-->
+<div class="row">
 
+    <!--social media buttons column-->
+    <div class="col-1 border-right">
+        <div id="follow-me" class="mt-3">
+            <a href="#">
+                <img src="/static/img/linkedinlogo.png" alt="linkedin" class="img-fluid mb-4 ml-2">
+            </a>
+            <a href="#">
+                <img src="/static/img/githublogo.png" alt="github" class="img-fluid ml-2">
+            </a>
+        </div>
+    </div>
 
-    <title>Data Dashboard</title>
+    <!--visualizations column-->
+    <div class="col-11">
 
-  </head>
+        <!--chart descriptions-->
+        <div id="middle-info" class="mt-3">
 
-  <body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand">COVID-19 Dashboard</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="https://www.udacity.com/course/data-scientist-nanodegree--nd025">Udacity</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://data.worldbank.org/">World Bank</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-  <div class="row ml-1 mt-2">
-
-      <!--social media buttons column-->
-      <div class="col-1 border-right">
-        <a href="https://www.linkedin.com">
-          <img class="mb-3 img-fluid" src="../static/imgs/linkedinlogo.png" alt="linkedin logo">
-        </a>
-        <a href="https://www.github.com">
-          <img class="mb-3 img-fluid " src="../static/imgs/githublogo.png" alt="github logo">
-        </a>
-        <a href="https://www.instagram.com">
-          <img class="mb-3 img-fluid " src="../static/imgs/instagram.png" alt="instagram logo">
-        </a>
-      </div>
-
-      <div class="col-10">
-
-          <h4 class="">COVID-19 Data Dashboard</h2>
-          <h6 class="text-muted"  id="tag-line" >Land Use Visualizations</h6>
-
-
-
-          <div class="container-fluid mt-3 ml-1 mr-3 ">
-            <div class="row mb-3">
-
-              <div class="form-group col-xs-6 col-md-4">
-                First Day:
-                <div class="">
-
-                  <input type="text" id="txtCheckIn"  class="form-control checkIn" placeholder="Date (D/M/Y)">
-
-
-                </div>
-              </div>
-
-
-
-
-              <div class="form-group col-xs-6 col-md-4">
-                Last Day:
-                <div class="">
-                    <input type="text" id="txtCheckOut"  class="form-control checkIn" placeholder="Date (D/M/Y)">
-                </div>
-
-              </div>
-
-              <div class="form-group col-xs-6 col-md-4">
-                Country:
-                <div id="countries_states2"  class="bfh-selectbox bfh-countries" data-country="US" data-flags="true"></div>
-              </div>
-
-            </div>
-
-          </div>
-
-
-
-          <!--visualizations column-->
-
-        <div class="container-fluid mt-5 ">
-
-          <div class="row mb-3">
-            <div class="col-4">
-              <img class="img-fluid" src="../static/imgs/plot1.png" alt="chart one">
-            </div>
-            <div class="col-4">
-              <img class="img-fluid" src="../static/imgs/plot2.png" alt="chart two">
-            </div>
-            <div class="col-4">
-              <img class="img-fluid" src="../static/imgs/plot3.png" alt="chart three" >
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-6">
-              <img class="img-fluid pl-3" src="../static/imgs/plot4.png" alt="chart four">
-            </div>
-            <div class="col-6">
-              <img class="img-fluid pl-3" src="../static/imgs/plot5.png" alt="chart five">
-            </div>
-          </div>
+            <h2 id="tag-line">World Bank Data Dashboard</h2>
+            <h4 id="tag-line" class="text-muted">Top 10 World Economies Land Use</h4>
 
         </div>
 
-      </div>
 
-   </div>
+        <div id="chart5">
+            <div id="{{ids[4]}}"></div>
+        </div>
+        <!--charts-->
+        <div id="charts" class="container mt-3 text-center">
+
+            <!--top two charts-->
+            <div class="row">
+                <div class="col-6">
+                    <div  id="{{ids[0]}}"></div>
+                </div>
+                <div class="col-6">
+                    <div  id="{{ids[1]}}"></div>
+                </div>
+            </div>
+
+            <!--bottom two charts-->
+            <div class="row mb-6">
+                <div class="col-6">
+                    <div id="chart3">
+                        <div id="{{ids[2]}}"></div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div id="chart4">
+                        <div id="{{ids[3]}}"></div>
+                    </div>
+                <div>
+            </div>
+
+            <!--TODO: Create another row and place a fifth chart in that row-->
+
+        </div>
+    <div>
+</div>
+
+<!--footer section-->
+<div id="footer" class="container"></div>
+
+</body>
 
 
+<footer>
 
-  </body>
+    <script type="text/javascript">
+        // plots the figure with id
+        // id must match the div id above in the html
+        var figures = {{figuresJSON | safe}};
+        var ids = {{ids | safe}};
+        for(var i in figures) {
+            Plotly.plot(ids[i],
+                figures[i].data,
+                figures[i].layout || {});
+        }
+    </script>
+
+</footer>
+
+
 </html>
