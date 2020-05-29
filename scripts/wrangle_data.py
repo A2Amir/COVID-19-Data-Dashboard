@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[165]:
+# In[469]:
 
 
 import requests
@@ -10,9 +10,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import plotly 
 import plotly.graph_objs as go
+import plotly.express as px
+import numpy as np
+
+from geopy.geocoders import Nominatim
 
 
-# In[185]:
+# In[491]:
 
 
 def get_dataset():
@@ -26,20 +30,54 @@ def get_dataset():
     df = pd.DataFrame.from_dict(json.loads(response.text))
     df.set_index('date',inplace=True)
     
+    df['longitude']=np.nan
+    df['latitude']=np.nan
+    
+    geolocator = Nominatim(user_agent="covidapp")
+    
+    for i in (df.country.unique()):
+        loc = findGeocode(geolocator,i) 
+          
+        # coordinates returned from  
+        # function is stored into 
+        # two seperate list 
+        if loc is not None:
+            df.loc[df.country.isin([i]),'longitude']=loc[1]
+            df.loc[df.country.isin([i]),'latitude']=loc[0]
+
     # Keep only the columns of interest 
-    keepcolumns = ['cases','cases_cum','deaths','deaths_cum','country']
+    keepcolumns = ['cases','cases_cum','deaths','deaths_cum',
+                   'country','latitude','longitude']
     df = df[keepcolumns]
+    df.columns = ['Number_of_positive_cases',
+                 'Cumulative_number_of_positive_cases',
+                 'Number_of_deaths',
+                 'Cumulative_number_of_deaths',
+                 'country','latitude','longitude']
+    
+    dataset.dropna(inplace=True)
     
     return df
 
 
-# In[214]:
+# In[492]:
 
 
 
+# function to find the coordinate 
+# of a given country  
+def findGeocode(geolocator,country):
+    try:
+        # Geolocate the center of the country
+        loc = geolocator.geocode(country)
+        # And return latitude and longitude
+        return (loc.latitude, loc.longitude)
+    except:
+        # Return missing
+        return (np.nan,np.nan)
 
 
-# In[191]:
+# In[496]:
 
 
 def filter_data(dataset, country_name = 'United_States_of_America', date = [dataset.index.min(), dataset.index.max()]):
@@ -62,20 +100,15 @@ def filter_data(dataset, country_name = 'United_States_of_America', date = [data
 
     if not df.index.is_monotonic:
         df = df.sort_index()
-    df.columns = ['Number_of_positive_cases',
-                 'Cumulative_number_of_positive_cases',
-                 'Number_of_deaths',
-                 'Cumulative_number_of_deaths',
-                 'country']
 
     # output clean csv file
     return df
 
 
-# In[215]:
+# In[513]:
 
 
-def return_figures(df):
+def return_figures(dataset,df):
     """Creates four plotly visualizations
 
     Args:
@@ -85,18 +118,18 @@ def return_figures(df):
         list (dict): list containing the four plotly visualizations
 
     """
+
     country =df.country.unique()[0]
+    
+    
 
    # first chart plot
    # as a line chart
     graph_one = []
-    
-    x_val =  df.Number_of_positive_cases.tolist()
-    y_val =  df.index.tolist()
     graph_one.append(
           go.Scatter(
-          x = x_val,
-          y = y_val,
+          x = df.Number_of_positive_cases.tolist(),
+          y = df.index.tolist(),
           mode = 'lines',
           name = country
           )
@@ -119,19 +152,18 @@ def return_figures(df):
     )
 
     layout_two = dict(title = 'Cumulative number of positive cases <br> per day',
-                xaxis = dict(title = 'Cumulative number of cases',),
-                yaxis = dict(title = 'Date'),
-                )
+                xaxis = dict(title = 'Cumulative number of cases'),
+                yaxis = dict(title = 'Date') ,
+                    )
+    
 
 
     # third chart plot
     graph_three = []
-    x_val = df.Number_of_deaths.tolist()
-    y_val =  df.index.tolist()
     graph_three.append(
           go.Scatter(
-          x = x_val,
-          y = y_val,
+          x = df.Number_of_deaths.tolist(),
+          y = df.index.tolist(),
           mode = 'lines',
           name = country
           )
@@ -146,13 +178,10 @@ def return_figures(df):
     # fourth chart
     graph_four = []
     
-    x_val = df.Cumulative_number_of_deaths.tolist()
-    y_val = df.index.tolist()
-
     graph_four.append(
           go.Bar(
-          x = x_val,
-          y = y_val,
+          x = df.Cumulative_number_of_deaths.tolist(),
+          y = df.index.tolist(),
           name = country
           )
       )
@@ -161,24 +190,55 @@ def return_figures(df):
                 xaxis = dict(title = 'Cumulative number of deaths'),
                 yaxis = dict(title = 'Date'),
                 )
+    # fifth chart
+    graph_five = []
+    
+    graph_five.append(px.scatter_mapbox(
+                          data_frame=dataset,
+                          lat="latitude",
+                          lon="longitude",
+                          hover_name="country",
+                          hover_data=dataset.columns[[1,3]],
+                          color_discrete_sequence=["fuchsia"],
+                          zoom=3,
+                          height=300,
+                        )
+                      )
 
+
+    layout_five = dict(title = 'The global outbreak of COVID-19',
+                       mapbox_style="open-street-map",
+                       )
+    
+    
     # append all charts to the figures list
     figures = []
     figures.append(dict(data=graph_one, layout=layout_one))
     figures.append(dict(data=graph_two, layout=layout_two))
     figures.append(dict(data=graph_three, layout=layout_three))
     figures.append(dict(data=graph_four, layout=layout_four))
-    
+    figures.append(dict(data=graph_five, layout=layout_five))
+
     
     return figures
 
 
-# In[216]:
+# In[511]:
 
 
 if __name__=='__main__':
     
     dataset =get_dataset()
+    
+    fig = px.scatter_mapbox(dataset, lat="latitude", lon="longitude",
+                        hover_name="country", hover_data=dataset.columns[[1,3]],
+                        color_discrete_sequence=["fuchsia"],
+                        zoom=3, height=300)
+
+    fig.update_layout(mapbox_style="open-street-map")
+    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+    fig.show()
+    
     df = filter_data(dataset, country_name = 'Afghanistan', date = [dataset.index.min(), dataset.index.max()])
 
     plt.figure(figsize = [12,5])
@@ -222,4 +282,5 @@ if __name__=='__main__':
     for n, label in enumerate(ax.xaxis.get_ticklabels()):
         if n % every_nth != 0:
             label.set_visible(False)
+            
 
