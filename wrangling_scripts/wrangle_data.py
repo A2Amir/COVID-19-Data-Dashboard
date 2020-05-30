@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[8]:
 
 
 import requests
@@ -16,7 +16,7 @@ import numpy as np
 from geopy.geocoders import Nominatim
 
 
-# In[2]:
+# In[9]:
 
 
 def get_dataset():
@@ -30,79 +30,43 @@ def get_dataset():
     df = pd.DataFrame.from_dict(json.loads(response.text))
     df.set_index('date',inplace=True)
 
-    coordinates = pd.read_csv('./data/coordinates.csv' ,index_col=0)
 
-    merged = df.merge(coordinates, on='country',right_index=True)
 
     # Keep only the columns of interest
     keepcolumns = ['cases','cases_cum','deaths','deaths_cum',
-                       'country','latitude','longitude']
+                       'country']
 
-    merged = merged[keepcolumns]
-    merged.columns = ['Number_of_positive_cases',
+    df = df[keepcolumns]
+    df.columns = ['Number_of_positive_cases',
                      'Cumulative_number_of_positive_cases',
                      'Number_of_deaths',
                      'Cumulative_number_of_deaths',
-                     'country','latitude','longitude']
-
-    #merged.dropna(inplace=True)
-
-    return merged
+                     'country']
 
 
-# In[3]:
+    return df
 
 
-def save_coordinates(path='./coordinates.csv'):
-
-    payload ={'code': "ALL"}# {'country': 'United States of America'}
-    URL = 'https://api.statworx.com/covid'
-    response = requests.post(url=URL, data=json.dumps(payload))
-
-        # Convert to data frame
-    df = pd.DataFrame.from_dict(json.loads(response.text))
-    df.set_index('date',inplace=True)
-
-    df['longitude']=np.nan
-    df['latitude']=np.nan
-    geolocator = Nominatim(user_agent="covidapp")
-
-    for i in (df.country.unique()):
-
-        loc = findGeocode(i)
-        # coordinates returned from
-        # function is stored into
-        # two seperate list
-        if loc is not np.nan:
-            df.loc[df.country.isin([i]),'longitude']=loc[1]
-            df.loc[df.country.isin([i]),'latitude']=loc[0]
-        else:
-            loc = findGeocode(df.loc[df.country.isin([i])]['code'][0])
-            if loc is not np.nan:
-                df.loc[df.country.isin([i]),'longitude']=loc[1]
-                df.loc[df.country.isin([i]),'latitude']=loc[0]
-
-    df.reset_index(drop=True,inplace=True)
-    df = df[['country','longitude','latitude']]
-    df.to_csv(path)
+# In[10]:
 
 
-# In[4]:
+def set_map_data(dataset):
+
+    coordinates = pd.read_csv('./data/coordinates.csv' ,index_col=0)
+    coordinates = coordinates.groupby('country')['longitude','latitude'].agg(['unique'])
+    coordinates.columns = coordinates.columns.droplevel(1)
+    coordinates['longitude']=coordinates.longitude.apply(lambda x: x[0])#
+    coordinates['latitude']=coordinates.latitude.apply(lambda x: x[0])#
+    coordinates.reset_index(inplace=True)
+    dataset.reset_index(inplace=True)
+    map_dataset = dataset.merge(coordinates, left_on='country', right_on='country')
+    map_dataset = map_dataset.set_index(pd.DatetimeIndex(map_dataset['date']))
+    map_dataset=map_dataset[map_dataset.groupby('country')['date'].transform('max') == map_dataset['date']]
+    map_dataset.drop(columns='date',inplace=True)
+    return map_dataset
 
 
-def findGeocode(country):
-    try:
-        # Geolocate the center of the country
-        loc = geolocator.geocode(country)
-        # And return latitude and longitude
-        return (loc.latitude, loc.longitude)
-    except:
-        # Return missing
-        #print('Error ocurring',country)
-        return np.nan
-
-
-# In[5]:
+# In[11]:
 
 
 def filter_data(dataset, country_name = 'United_States_of_America', date = ['2019-12-31', '2020-05-29']):
@@ -131,7 +95,7 @@ def filter_data(dataset, country_name = 'United_States_of_America', date = ['201
     return df
 
 
-# In[6]:
+# In[12]:
 
 
 def return_figures(dataset,df):
@@ -168,7 +132,7 @@ def return_figures(dataset,df):
     # second chart plot
     graph_two = []
     graph_two.append(
-      go.Scatter(
+      go.Bar(
       y = df.Cumulative_number_of_positive_cases.tolist(),
       x = df.index.tolist(),
       name = country
@@ -203,7 +167,7 @@ def return_figures(dataset,df):
     graph_four = []
 
     graph_four.append(
-          go.Scatter(
+          go.Bar(
           y = df.Cumulative_number_of_deaths.tolist(),
           x = df.index.tolist(),
           name = country
@@ -218,24 +182,34 @@ def return_figures(dataset,df):
     graph_five = []
 
 
-    graph_five.append(px.scatter_mapbox(
-                          data_frame=dataset,
-                          lat='latitude',
-                          lon='longitude',
-                          hover_name='country',
-                          hover_data=dataset.columns[[1,3]],
-                          color_discrete_sequence=["fuchsia"],
-                          zoom=3,
-                          height=300,
+
+    graph_five.append(go.Scattermapbox( lat=dataset.latitude.tolist(),
+                        lon=dataset.longitude.tolist(),
+                        mode='markers',
+                        hoverinfo='text',
+                        text = ['Cumulative number of positive cases:  {} <br> Cumulative number of deaths:  {}<br> Country:  {}'.format(dataset[dataset.columns[[1,3,4]]].values[i][0],dataset[dataset.columns[[1,3,4]]].values[i][1],dataset[dataset.columns[[1,3,4]]].values[i][2])
+                                                for i in range(dataset.shape[0])],
+                        marker=go.scattermapbox.Marker(
+                                            size=5,
+                                            color="fuchsia",
+                                            opacity=0.7
+                            ),
                         )
-                      )
+                        )
 
 
-    layout_five = dict(title = 'The global outbreak of COVID-19',
-                       mapbox_style="open-street-map",
-                        mapbox = {'accesstoken': 'pk.eyJ1IjoiYW1pcnppYWVlIiwiYSI6ImNrYXNlZXd4eDBpcXAzMG1zOTR1NWt2bzUifQ.9vOmF1-LoxDggkQshH6sbQ',
-                        'style': "outdoors", 'zoom': 0.7},
-                       )
+
+    layout_five = dict(
+                hovermode='closest',
+                mapbox=dict(
+                accesstoken='pk.eyJ1IjoiYW1pcnppYWVlIiwiYSI6ImNrYXNlZXd4eDBpcXAzMG1zOTR1NWt2bzUifQ.9vOmF1-LoxDggkQshH6sbQ',
+                bearing=0,
+                pitch=0,
+                zoom=0),
+                mapbox_style="stamen-terrain",
+                )
+
+
 
 
 
@@ -251,23 +225,39 @@ def return_figures(dataset,df):
     return figures
 
 
-# In[ ]:
+# In[13]:
 
 
 if __name__=='__main__':
 
-    dataset =get_dataset()
+    dataset = get_dataset()
+    map_data = set_map_data(dataset)
 
-    fig = px.scatter_mapbox(dataset, lat="latitude", lon="longitude",
-                        hover_name="country", hover_data=dataset.columns[[1,3]],
-                        color_discrete_sequence=["fuchsia"],
-                        zoom=3, height=300)
+    fig = go.Figure(px.scatter_mapbox(
+                              data_frame=map_data,
+                              lat='latitude',
+                              lon='longitude',
+                              hover_name='country',
+                              hover_data=map_data.columns[[1,3]],
+                              color_discrete_sequence=["fuchsia"],
+                              zoom=3,
+                              height=300,
+                            )
+                          )
 
-    fig.update_layout(mapbox_style="open-street-map")
-    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+
+
+    fig.update_layout(
+        margin={"r":0,"t":0,"l":0,"b":0},
+        mapbox=go.layout.Mapbox(
+        style="stamen-terrain",
+
+        )
+    )
+
     fig.show()
 
-    df = filter_data(dataset, country_name = 'Afghanistan', date = [dataset.index.min(), dataset.index.max()])
+    df = filter_data(dataset, country_name = 'Iran', date = [dataset.index.min(), dataset.index.max()])
 
     plt.figure(figsize = [12,5])
 
