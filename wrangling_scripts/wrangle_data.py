@@ -135,7 +135,7 @@ def return_figures(dataset,df):
                         t=60,
                         pad=4
                     ),
-                    paper_bgcolor="LightSteelBlue",
+                    paper_bgcolor="lightskyblue",
                     title={
                             'text': "Number of positive cases (per day)"+' in <br>'+country,
                             'y':0.9,
@@ -170,7 +170,7 @@ def return_figures(dataset,df):
                                  t=60,
                                  pad=4
                                  ),
-                     paper_bgcolor="LightSteelBlue",
+                     paper_bgcolor="lightskyblue",
                      title={ 'text': "Cumulative number of positive cases (per day)"+' in <br>'+country,
                              'y':0.9,
                              'x':0.5,
@@ -282,6 +282,14 @@ def return_figures(dataset,df):
                         pitch=0,
                         zoom=0),
                         mapbox_style="stamen-terrain",
+                        margin=dict(
+                                l=50,
+                                r=50,
+                                b=50,
+                                t=60,
+                                pad=4
+                                    ),
+                        paper_bgcolor="powderblue",
                         )
 
 

@@ -27,7 +27,7 @@
 
 
        <!-- interaction code   JS-->
-       <script src="../static/js/interaction.js"> </script>
+       <script src="/static/js/interaction.js"> </script>
 
     </head>
 
@@ -97,19 +97,19 @@
 
 
                 <!--top two charts-->
-                <div class="row">
+                <div class="row m-0 ">
 
 
 
                   <!--filter buttons-->
-                  <div class="container-fluid mt-3 ml-1 mr-3 ">
+                  <div class="container-fluid mt-3 ml-1 mr-3  mb-0 ">
                     <div class="row mb-3">
 
                       <div class="form-group col-xs-6 col-md-4">
                         First Day:
                         <div class="">
 
-                          <input type="text" id="txtCheckIn" placeholder="* Check-In Date (M/D/Y)" readonly>
+                          <input type="text" id="txtCheckIn" placeholder="  "   readonly>
 
                         </div>
                       </div>
@@ -120,7 +120,7 @@
                       <div class="form-group col-xs-6 col-md-4">
                         Last Day:
                         <div class="">
-                            <input type="text" id="txtCheckOut" placeholder="* Check-Out Date (M/D/Y)" readonly>
+                            <input type="text" id="txtCheckOut" placeholder='' readonly>
                         </div>
 
                       </div>
@@ -186,6 +186,40 @@
                   figures[i].data,
                   figures[i].layout || {});
           }
+
+          var date = new Date(2019, 11, 24);
+          var mindate = new Date(2019, 11, 24);
+
+          $('#txtCheckIn').datepicker({ format:  "yyyy-mm-dd" });
+          $('#txtCheckIn').datepicker( 'setStartDate',mindate );
+          $('#txtCheckIn').datepicker('setDate', date);
+          $('#txtCheckIn').datepicker('update');
+
+          $('#txtCheckOut').datepicker({ format:  "yyyy-mm-dd" });
+          $('#txtCheckOut').datepicker('setDate', new Date());
+          $('#txtCheckOut').datepicker('update');
+
+
+
+
+          $("#txtCheckIn").datepicker({
+              format: "yyyy-mm-dd",
+              todayBtn: true,
+              autoclose: true
+          })
+            .on("changeDate", function(e) {
+              var checkInDate = e.date, $checkOut = $("#txtCheckOut");
+              checkInDate.setDate(checkInDate.getDate() + 1);
+              $checkOut.datepicker("setStartDate", checkInDate);
+              $checkOut.datepicker("setDate", checkInDate).focus();
+            });
+
+          $("#txtCheckOut").datepicker({
+            format: "yyyy-mm-dd",
+            todayBtn: true,
+            autoclose: true
+        });
+
       </script>
 
   </footer>
