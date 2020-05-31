@@ -119,30 +119,68 @@ def return_figures(dataset,df):
           y = df.Number_of_positive_cases.tolist(),
           x = df.index.tolist(),
           mode = 'lines',
-          name = country
+          name = country,
+          line=dict(color='red', width=1)
           )
       )
 
-    layout_one = dict(title = 'Number of positive cases <br> per day',
-                xaxis = dict(title = 'Number of cases',
-                autotick=True),
-                yaxis = dict(title = 'Date'),
-                )
+    layout_one = dict(xaxis = dict( autotick=True),
+                    yaxis = dict(title = 'Number of positive cases'),
+                    autosize=True,
+                    height=380,
+                    margin=dict(
+                        l=50,
+                        r=50,
+                        b=50,
+                        t=60,
+                        pad=4
+                    ),
+                    paper_bgcolor="LightSteelBlue",
+                    title={
+                            'text': "Number of positive cases (per day)"+' in <br>'+country,
+                            'y':0.9,
+                            'x':0.5,
+                            'xanchor': 'center',
+                            'yanchor': 'below',
+                             'font': { 'family': 'Tahoma',
+                                        'size': 13
+                                    }
+                                },
+                            )
 
     # second chart plot
     graph_two = []
     graph_two.append(
-      go.Bar(
+      go.Scatter(
       y = df.Cumulative_number_of_positive_cases.tolist(),
       x = df.index.tolist(),
-      name = country
+      mode = 'lines',
+      line=dict(color='red', width=1),
       )
     )
 
-    layout_two = dict(title = 'Cumulative number of positive cases <br> per day',
-                xaxis = dict(title = 'Cumulative number of cases'),
-                yaxis = dict(title = 'Date') ,
-                    )
+    layout_two = dict(xaxis = dict( autotick=True),
+                     yaxis = dict(title = 'Cumulative number of positive cases'),
+                     autosize=True,
+                     height=380,
+                     margin=dict(
+                                 l=50,
+                                 r=50,
+                                 b=50,
+                                 t=60,
+                                 pad=4
+                                 ),
+                     paper_bgcolor="LightSteelBlue",
+                     title={ 'text': "Cumulative number of positive cases (per day)"+' in <br>'+country,
+                             'y':0.9,
+                             'x':0.5,
+                             'xanchor': 'center',
+                             'yanchor': 'below',
+                              'font': { 'family': 'Tahoma',
+                                         'size': 13
+                                      }
+                             },
+                        )
 
 
 
@@ -153,31 +191,69 @@ def return_figures(dataset,df):
           y = df.Number_of_deaths.tolist(),
           x = df.index.tolist(),
           mode = 'lines',
-          name = country
+          line=dict(color='red', width=1),
           )
       )
 
-    layout_three = dict(title = 'Number of deaths <br> per day)',
-                xaxis = dict(title = 'Number of deaths',
-                autotick=True),
-                yaxis = dict(title = 'Date'),
+    layout_three = dict(xaxis = dict(autotick=True),
+                        yaxis = dict(title = 'Number of deaths'),
+                        autosize=True,
+                        height=380,
+                        margin=dict(
+                                    l=50,
+                                    r=50,
+                                    b=50,
+                                    t=60,
+                                    pad=4
+                                    ),
+                        paper_bgcolor="lightskyblue",
+                        title={ 'text': "Number of deaths (per day)"+' in <br>'+country,
+                                'y':0.9,
+                                'x':0.5,
+                                'xanchor': 'center',
+                                'yanchor': 'below',
+                                 'font': { 'family': 'Tahoma',
+                                            'size': 13
+                                         }
+                                },
+
+
                 )
 
     # fourth chart
     graph_four = []
 
     graph_four.append(
-          go.Bar(
+          go.Scatter(
           y = df.Cumulative_number_of_deaths.tolist(),
           x = df.index.tolist(),
-          name = country
+          mode = 'lines',
+          line=dict(color='red', width=1),
           )
       )
 
-    layout_four = dict(title = 'Cumulative number of deaths <br> per day',
-                xaxis = dict(title = 'Cumulative number of deaths'),
-                yaxis = dict(title = 'Date'),
-                )
+    layout_four = dict(xaxis = dict(autotick=True),
+                       yaxis = dict(title = 'Cumulative number of deaths'),
+                       autosize=True,
+                       height=380,
+                       margin=dict(
+                                   l=50,
+                                   r=50,
+                                   b=50,
+                                   t=60,
+                                   pad=4
+                                   ),
+                        paper_bgcolor="lightskyblue",
+                        title={ 'text': "Cumulative number of deaths (per day)" +' in <br>'+country,
+                                'y':0.9,
+                                'x':0.5,
+                                'xanchor': 'center',
+                                'yanchor': 'below',
+                                'font': { 'family': 'Tahoma',
+                                          'size': 13
+                                         }
+                              },
+                        )
     # fifth chart
     graph_five = []
 
@@ -193,21 +269,20 @@ def return_figures(dataset,df):
                                             size=5,
                                             color="fuchsia",
                                             opacity=0.7
-                            ),
+                                                    ),
+                                    )
+                    )
+
+
+
+    layout_five = dict( hovermode='closest',
+                        mapbox=dict(
+                        accesstoken='pk.eyJ1IjoiYW1pcnppYWVlIiwiYSI6ImNrYXNlZXd4eDBpcXAzMG1zOTR1NWt2bzUifQ.9vOmF1-LoxDggkQshH6sbQ',
+                        bearing=0,
+                        pitch=0,
+                        zoom=0),
+                        mapbox_style="stamen-terrain",
                         )
-                        )
-
-
-
-    layout_five = dict(
-                hovermode='closest',
-                mapbox=dict(
-                accesstoken='pk.eyJ1IjoiYW1pcnppYWVlIiwiYSI6ImNrYXNlZXd4eDBpcXAzMG1zOTR1NWt2bzUifQ.9vOmF1-LoxDggkQshH6sbQ',
-                bearing=0,
-                pitch=0,
-                zoom=0),
-                mapbox_style="stamen-terrain",
-                )
 
 
 
