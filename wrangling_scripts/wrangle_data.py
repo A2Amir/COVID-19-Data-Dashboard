@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[8]:
+# In[1]:
 
 
 import requests
@@ -13,10 +13,7 @@ import plotly.graph_objs as go
 import plotly.express as px
 import numpy as np
 
-from geopy.geocoders import Nominatim
-
-
-# In[9]:
+# In[2]:
 
 
 def get_dataset():
@@ -34,20 +31,20 @@ def get_dataset():
 
     # Keep only the columns of interest
     keepcolumns = ['cases','cases_cum','deaths','deaths_cum',
-                       'country']
+                       'country','code']
 
     df = df[keepcolumns]
     df.columns = ['Number_of_positive_cases',
                      'Cumulative_number_of_positive_cases',
                      'Number_of_deaths',
                      'Cumulative_number_of_deaths',
-                     'country']
+                     'country','code']
 
 
     return df
 
 
-# In[10]:
+# In[3]:
 
 
 def set_map_data(dataset):
@@ -63,10 +60,12 @@ def set_map_data(dataset):
     map_dataset = map_dataset.set_index(pd.DatetimeIndex(map_dataset['date']))
     map_dataset=map_dataset[map_dataset.groupby('country')['date'].transform('max') == map_dataset['date']]
     map_dataset.drop(columns='date',inplace=True)
+    dataset.set_index('date',inplace=True)
+
     return map_dataset
 
 
-# In[11]:
+# In[4]:
 
 
 def filter_data(dataset, country_name = 'United_States_of_America', date = ['2019-12-31', '2020-05-29']):
@@ -85,7 +84,7 @@ def filter_data(dataset, country_name = 'United_States_of_America', date = ['201
 
     """
     df = dataset.loc[(dataset.index>=date[0]) & (dataset.index <=date[1])]
-    df= df[df.country.isin([country_name])]
+    df= df[df.country.isin(country_name)]
 
     if not df.index.is_monotonic:
         df = df.sort_index()
@@ -95,69 +94,96 @@ def filter_data(dataset, country_name = 'United_States_of_America', date = ['201
     return df
 
 
-# In[12]:
+# In[5]:
 
 
-def return_figures(dataset,df):
+def get_the_top(map_dataset):
+    # get list of the five top countries and all countrie
+
+    map_dataset.sort_values('Cumulative_number_of_deaths',ascending=False,inplace=True)
+
+
+    codes = map_dataset.iloc[:5].country.values
+    countries = map_dataset.iloc[:5].code.values
+
+    country_default = []
+    [country_default.append((country, code)) for code, country in zip(countries,codes)];
+
+    country_codes =[]
+    [country_codes.append([country, code]) for  country,code in zip(map_dataset.country.tolist(),map_dataset.code.tolist())];
+
+    return country_default, country_codes
+
+
+# In[6]:
+
+
+def return_figures(map_dataset,df):
     """Creates four plotly visualizations
 
     Args:
-        None
+        map_dataset DataFrame
+        filter dataset DataFrame
 
     Returns:
-        list (dict): list containing the four plotly visualizations
+        list (dict): list containing the five plotly visualizations
 
     """
 
-    country =df.country.unique()[0]
 
    # first chart plot
    # as a line chart
     graph_one = []
-    graph_one.append(
-          go.Scatter(
-          y = df.Number_of_positive_cases.tolist(),
-          x = df.index.tolist(),
-          mode = 'lines',
-          name = country,
-          line=dict(color='red', width=1)
-          )
-      )
+    for country in df.country.unique():
+        graph_one.append(go.Scatter(
+                         x = df[df['country'] == country].index.tolist(),
+                         y = df[df['country'] == country].Number_of_positive_cases.tolist(),
+                         mode = 'lines',
+                         name = str(country),
+                         line=dict(width=1)
+                                    )
+                         )
+
+
 
     layout_one = dict(xaxis = dict( autotick=True),
                     yaxis = dict(title = 'Number of positive cases'),
                     autosize=True,
                     height=380,
+                    hovermode ='closest' ,
+                    hovertemplate='Country: %{name} <br> Number of positive cases: %{y} <br> date: %{x} ',
                     margin=dict(
                         l=50,
-                        r=50,
+                        r=20,
                         b=50,
                         t=60,
                         pad=4
                     ),
                     paper_bgcolor="lightskyblue",
                     title={
-                            'text': "Number of positive cases (per day)"+' in <br>'+country,
+                            'text': "Number of positive cases (per day)",
                             'y':0.9,
                             'x':0.5,
                             'xanchor': 'center',
                             'yanchor': 'below',
-                             'font': { 'family': 'Tahoma',
-                                        'size': 13
-                                    }
-                                },
-                            )
+                            'font': { 'family': 'Tahoma',
+                                      'size': 13
+                                     }
+                          },
+                        showlegend=False,
+                    )
 
     # second chart plot
     graph_two = []
-    graph_two.append(
-      go.Scatter(
-      y = df.Cumulative_number_of_positive_cases.tolist(),
-      x = df.index.tolist(),
-      mode = 'lines',
-      line=dict(color='red', width=1),
-      )
-    )
+    for country in df.country.unique():
+        graph_two.append(go.Scatter(
+                         y = df[df['country'] == country].Cumulative_number_of_positive_cases.tolist(),
+                         x =df[df['country'] == country].index.tolist(),
+                         mode = 'lines',
+                         line=dict(width=1),
+                         name = str(country)
+                                   )
+                        )
 
     layout_two = dict(xaxis = dict( autotick=True),
                      yaxis = dict(title = 'Cumulative number of positive cases'),
@@ -165,35 +191,37 @@ def return_figures(dataset,df):
                      height=380,
                      margin=dict(
                                  l=50,
-                                 r=50,
+                                 r=20,
                                  b=50,
                                  t=60,
                                  pad=4
                                  ),
                      paper_bgcolor="lightskyblue",
-                     title={ 'text': "Cumulative number of positive cases (per day)"+' in <br>'+country,
+                     title={ 'text': "Cumulative number of positive cases (per day)",
                              'y':0.9,
                              'x':0.5,
                              'xanchor': 'center',
                              'yanchor': 'below',
                               'font': { 'family': 'Tahoma',
-                                         'size': 13
+                                        'size': 13
                                       }
                              },
+                            showlegend=False,
                         )
 
 
 
     # third chart plot
     graph_three = []
-    graph_three.append(
-          go.Scatter(
-          y = df.Number_of_deaths.tolist(),
-          x = df.index.tolist(),
-          mode = 'lines',
-          line=dict(color='red', width=1),
-          )
-      )
+    for country in df.country.unique():
+        graph_three.append(go.Scatter(
+                           y = df[df['country'] == country].Number_of_deaths.tolist(),
+                           x = df[df['country'] == country].index.tolist(),
+                           mode = 'lines',
+                           line=dict(width=1),
+                           name = str(country)
+                                      )
+                          )
 
     layout_three = dict(xaxis = dict(autotick=True),
                         yaxis = dict(title = 'Number of deaths'),
@@ -201,13 +229,13 @@ def return_figures(dataset,df):
                         height=380,
                         margin=dict(
                                     l=50,
-                                    r=50,
+                                    r=20,
                                     b=50,
                                     t=60,
                                     pad=4
                                     ),
                         paper_bgcolor="lightskyblue",
-                        title={ 'text': "Number of deaths (per day)"+' in <br>'+country,
+                        title={ 'text': "Number of deaths (per day)",
                                 'y':0.9,
                                 'x':0.5,
                                 'xanchor': 'center',
@@ -216,21 +244,23 @@ def return_figures(dataset,df):
                                             'size': 13
                                          }
                                 },
+                        showlegend=False,
+
 
 
                 )
 
     # fourth chart
     graph_four = []
-
-    graph_four.append(
-          go.Scatter(
-          y = df.Cumulative_number_of_deaths.tolist(),
-          x = df.index.tolist(),
-          mode = 'lines',
-          line=dict(color='red', width=1),
-          )
-      )
+    for country in df.country.unique():
+        graph_four.append(go.Scatter(
+                          y = df[df['country'] == country].Cumulative_number_of_deaths.tolist(),
+                          x = df[df['country'] == country].index.tolist(),
+                          mode = 'lines',
+                          line=dict(width=1),
+                          name = str(country)
+                          )
+                      )
 
     layout_four = dict(xaxis = dict(autotick=True),
                        yaxis = dict(title = 'Cumulative number of deaths'),
@@ -238,13 +268,13 @@ def return_figures(dataset,df):
                        height=380,
                        margin=dict(
                                    l=50,
-                                   r=50,
+                                   r=20,
                                    b=50,
                                    t=60,
                                    pad=4
                                    ),
                         paper_bgcolor="lightskyblue",
-                        title={ 'text': "Cumulative number of deaths (per day)" +' in <br>'+country,
+                        title={ 'text': "Cumulative number of deaths (per day)",
                                 'y':0.9,
                                 'x':0.5,
                                 'xanchor': 'center',
@@ -253,18 +283,19 @@ def return_figures(dataset,df):
                                           'size': 13
                                          }
                               },
+                        showlegend=False,
                         )
     # fifth chart
     graph_five = []
 
 
 
-    graph_five.append(go.Scattermapbox( lat=dataset.latitude.tolist(),
-                        lon=dataset.longitude.tolist(),
+    graph_five.append(go.Scattermapbox( lat=map_dataset.latitude.tolist(),
+                        lon=map_dataset.longitude.tolist(),
                         mode='markers',
                         hoverinfo='text',
-                        text = ['Cumulative number of positive cases:  {} <br> Cumulative number of deaths:  {}<br> Country:  {}'.format(dataset[dataset.columns[[1,3,4]]].values[i][0],dataset[dataset.columns[[1,3,4]]].values[i][1],dataset[dataset.columns[[1,3,4]]].values[i][2])
-                                                for i in range(dataset.shape[0])],
+                        text = ['Cumulative number of positive cases:  {} <br> Cumulative number of deaths:  {}<br> Country:  {}'.format(map_dataset[map_dataset.columns[[1,3,4]]].values[i][0],map_dataset[map_dataset.columns[[1,3,4]]].values[i][1],map_dataset[map_dataset.columns[[1,3,4]]].values[i][2])
+                                                for i in range(map_dataset.shape[0])],
                         marker=go.scattermapbox.Marker(
                                             size=5,
                                             color="fuchsia",
@@ -308,7 +339,7 @@ def return_figures(dataset,df):
     return figures
 
 
-# In[13]:
+# In[7]:
 
 
 if __name__=='__main__':
@@ -316,70 +347,49 @@ if __name__=='__main__':
     dataset = get_dataset()
     map_data = set_map_data(dataset)
 
-    fig = go.Figure(px.scatter_mapbox(
-                              data_frame=map_data,
-                              lat='latitude',
-                              lon='longitude',
-                              hover_name='country',
-                              hover_data=map_data.columns[[1,3]],
-                              color_discrete_sequence=["fuchsia"],
-                              zoom=3,
-                              height=300,
-                            )
-                          )
+    fig =go.Figure(go.Scattermapbox(lat=map_data.latitude.tolist(),
+                                    lon=map_data.longitude.tolist(),
+                                    mode='markers',
+                                    hoverinfo='text',
+                                    text = ['Cumulative number of positive cases:  {} <br> Cumulative number of deaths:  {}<br> Country:  {}'.format(map_data[map_data.columns[[1,3,4]]].values[i][0],map_data[map_data.columns[[1,3,4]]].values[i][1],map_data[map_data.columns[[1,3,4]]].values[i][2])
+                                                            for i in range(map_data.shape[0])],
+
+                                    marker=go.scattermapbox.Marker(
+                                                        size=5,
+                                                        color="fuchsia",
+                                                        opacity=0.7
+                                                                   ),
+
+                                            )
+                  )
 
 
-
-    fig.update_layout(
-        margin={"r":0,"t":0,"l":0,"b":0},
-        mapbox=go.layout.Mapbox(
-        style="stamen-terrain",
-
-        )
-    )
-
+    fig.update_layout(title = 'The global outbreak of COVID-19',
+                    hovermode='closest',
+                    mapbox=dict(
+                    accesstoken='pk.eyJ1IjoiYW1pcnppYWVlIiwiYSI6ImNrYXNlZXd4eDBpcXAzMG1zOTR1NWt2bzUifQ.9vOmF1-LoxDggkQshH6sbQ',
+                    bearing=0,
+                    pitch=0,
+                    zoom=3),
+                    mapbox_style="stamen-terrain",)
     fig.show()
 
-    df = filter_data(dataset, country_name = 'Iran', date = [dataset.index.min(), dataset.index.max()])
+    country_default, country_codes = get_the_top(map_data)
+    country_default = [country for country, code in country_default]
+    dates=[dataset.index.min(), dataset.index.max()]
 
-    plt.figure(figsize = [12,5])
+    df = filter_data(dataset, country_name = country_default, date = dates  )
 
-    #ax.plot(df.cases)
-    ax = plt.subplot(1,2,1)
-    plt.plot(df.Number_of_positive_cases)
-    plt.xticks(Rotation=90);
+    fig = go.Figure()
+    for country in df.country.unique():
+        fig.add_traces(go.Scatter(
+                         y = df[df['country'] == country].Cumulative_number_of_positive_cases.tolist(),
+                         x =df[df['country'] == country].index.tolist(),
+                         mode = 'lines',
+                         line=dict( width=1),
+                         name=str(country),
 
-    every_nth = 10
-    for n, label in enumerate(ax.xaxis.get_ticklabels()):
-        if n % every_nth != 0:
-            label.set_visible(False)
+                                    )
+                        )
 
-    ax = plt.subplot(1,2,2)
-    plt.plot(df.Cumulative_number_of_positive_cases)
-    plt.xticks(Rotation=90);
-
-    every_nth = 10
-    for n, label in enumerate(ax.xaxis.get_ticklabels()):
-        if n % every_nth != 0:
-            label.set_visible(False)
-
-    plt.figure(figsize = [12,5])
-
-    #ax.plot(df.cases)
-    ax = plt.subplot(1,2,1)
-    plt.plot(df.Number_of_deaths)
-    plt.xticks(Rotation=90);
-
-    every_nth = 10
-    for n, label in enumerate(ax.xaxis.get_ticklabels()):
-        if n % every_nth != 0:
-            label.set_visible(False)
-
-    ax = plt.subplot(1,2,2)
-    plt.plot(df.Cumulative_number_of_deaths)
-    plt.xticks(Rotation=90);
-
-    every_nth = 10
-    for n, label in enumerate(ax.xaxis.get_ticklabels()):
-        if n % every_nth != 0:
-            label.set_visible(False)
+    fig.show()
