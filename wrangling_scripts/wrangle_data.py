@@ -148,15 +148,16 @@ def return_figures(map_dataset,df):
 
 
     layout_one = dict(xaxis = dict( autotick=True),
-                    yaxis = dict(title = 'Number of positive cases'),
+                    yaxis = dict(title = 'Number of positive cases',ticksuffix=" "),
                     autosize=True,
+                    height=380,
                     hovermode ='closest' ,
                     margin=dict(
                         l=50,
                         r=20,
                         b=50,
                         t=60,
-                        pad=4
+                        pad=.2
                     ),
                     paper_bgcolor="lightskyblue",
                     title={
@@ -166,10 +167,11 @@ def return_figures(map_dataset,df):
                             'xanchor': 'center',
                             'yanchor': 'below',
                             'font': { 'family': 'Tahoma',
-                                      'size': 13
+                                      'size': 12
                                      }
                           },
-                        showlegend=False,
+                    showlegend=True,
+                    legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", size=11, color="black")),
                     )
 
     # second chart plot
@@ -188,13 +190,14 @@ def return_figures(map_dataset,df):
     layout_two = dict(xaxis = dict( autotick=True),
                      yaxis = dict(title = 'Cumulative number of positive cases'),
                      autosize=True,
+                    height=380,
                      hovermode ='closest' ,
                      margin=dict(
                                  l=50,
                                  r=20,
                                  b=50,
                                  t=60,
-                                 pad=4
+                                 pad=.2
                                  ),
                      paper_bgcolor="lightskyblue",
                      title={ 'text': "<b>Cumulative number of positive cases</b>",
@@ -203,10 +206,11 @@ def return_figures(map_dataset,df):
                              'xanchor': 'center',
                              'yanchor': 'below',
                               'font': { 'family': 'Tahoma',
-                                        'size': 13
+                                        'size': 12
                                       }
                              },
-                            showlegend=False,
+                        showlegend=True,
+                        legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", size=11, color="black")),
                         )
 
 
@@ -228,13 +232,14 @@ def return_figures(map_dataset,df):
     layout_three = dict(xaxis = dict(autotick=True),
                         yaxis = dict(title = 'Number of deaths'),
                         autosize=True,
+                        height=380,
                         hovermode ='closest' ,
                         margin=dict(
                                     l=50,
-                                    r=20,
+                                    r=10,
                                     b=50,
                                     t=60,
-                                    pad=4
+                                    pad=.2
                                     ),
                         paper_bgcolor="lightskyblue",
                         title={ 'text': "<b>Number of deaths (per day) </b>",
@@ -243,14 +248,13 @@ def return_figures(map_dataset,df):
                                 'xanchor': 'center',
                                 'yanchor': 'below',
                                  'font': { 'family': 'Tahoma',
-                                            'size': 13
+                                            'size': 12
                                          }
                                 },
-                        showlegend=False,
+                        showlegend=True,
+                        legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", size=11, color="black")),
 
-
-
-                )
+                                        )
 
     # fourth chart
     graph_four = []
@@ -267,15 +271,16 @@ def return_figures(map_dataset,df):
                       )
 
     layout_four = dict(xaxis = dict(autotick=True),
-                       yaxis = dict(title = 'Cumulative number of deaths'),
+                       yaxis = dict(title = 'Cumulative number of deaths',ticksuffix=" "),
                        autosize=True,
+                       height=380,
                        hovermode ='closest' ,
                        margin=dict(
                                    l=50,
                                    r=20,
                                    b=50,
                                    t=60,
-                                   pad=4
+                                   pad=.2
                                    ),
                         paper_bgcolor="lightskyblue",
                         title={ 'text': "<b>Cumulative number of deaths </b>",
@@ -284,10 +289,12 @@ def return_figures(map_dataset,df):
                                 'xanchor': 'center',
                                 'yanchor': 'below',
                                 'font': { 'family': 'Tahoma',
-                                          'size': 13
+                                          'size': 12
                                          }
                               },
-                        showlegend=False,
+                        showlegend=True,
+                        legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", size=11, color="black")),
+
                         )
     # fifth chart
     graph_five = []

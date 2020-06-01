@@ -16,11 +16,9 @@
        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-json/2.6.0/jquery.json.min.js" integrity="sha256-Ac6pM19lP690qI07nePO/yY6Ut3c7KM9AgNdnc5LtrI=" crossorigin="anonymous"></script>
 
 
-       <!-- bootstrap-formhelpers CSS  JS-->
-       <link rel="stylesheet"  href="https://bootstrapformhelpers.com/assets/css/bootstrap-formhelpers.min.css"/>
-       <script src="https://bootstrapformhelpers.com/assets/js/bootstrap-formhelpers.min.js"></script>
-
-
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/js/bootstrap-formhelpers.js"></script>
+       <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/css/bootstrap-formhelpers.css" rel="stylesheet"/>
 
        <!-- interaction code   JS-->
        <script src="/static/js/interaction.js"> </script>
@@ -31,7 +29,7 @@
 
       <!--navbar links-->
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-         <a class="navbar-brand" href="#">World Bank Dashboard</a>
+         <a class="navbar-brand" href="">  Coronavirus Data Dashboard</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navbarTogglerDemo02"
         aria-controls="navbarTogglerDemo02" aria-expanded="false"
@@ -87,53 +85,11 @@
                 </div>
               </div>
 
-
-              <!--charts-->
-              <div id="charts" class="container mt-3 text-center">
-
-
-                <!--top two charts-->
-                <div class="row container-fluid mt-3 ml-0 mr-3  mb-3  p-0">
-
-
-
-                  <!--filter buttons-->
-
-
-              		<!-- dropdown menu for filter -->
-              		<div class="dropdown ">
-
-              	  		<button class="btn btn-danger btn-lg dropdown-toggle" type="button"
-              	  		id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-              	  		aria-expanded="false">Filter by country</button>
-
-              	  		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="check-boxes">
-              				<div class="form-check ml-3">
-              					<!-- Check the select-all box if all countries were submitted from the form -->
-              					{% if countries_selected|length == 10 %}
-              						<input class="form-check-input" type="checkbox" name="Select All" value="selectall" id="select-all-check" checked>
-              					{% else %}
-              						<input class="form-check-input" type="checkbox" name="Select All" value="selectall" id="select-all-check">
-              					{% endif %}
-              				  	<label class="form-check-label" for="select-all-check">Select All</label>
-              				</div>
-              				<form class="px-4 py-3" role="form" method="post" action="/" id="form-filter">
-              					{% for country in all_countries %}
-              						<div class="form-check">
-              							<!-- Check the country filter boxes for all countries submitted from the form -->
-              							{% if country[1] in countries_selected %}
-              						  		<input class="form-check-input country-check" type="checkbox" name="{{ country[0] }}" value="{{ country[1] }}" id="defaultCheck1-{{country[1]}}" checked>
-              							{% else %}
-              						  		<input class="form-check-input country-check" type="checkbox" name="{{ country[0] }}" value="{{ country[1] }}" id="defaultCheck1-{{country[1]}}">
-              							{% endif %}
-              					  		<label class="form-check-label" for="defaultCheck1-{{country[1]}}">{{country[0]}}</label>
-              						</div>
-              					{% endfor %}
-              		  			<button id="country_selector" type="submit" class="btn btn-primary my-1">Submit</button>
-              				</form>
-              			</div>
-              		</div>
+              <div class=" container mt-3 text-center">
+                  <h3>The Top five most-affected countries</h3>
               </div>
+                            <!--charts-->
+              <div id="charts" class="container mt-3 text-center">
 
                   <!--top two charts-->
                   <div class="row" mb-13>
@@ -154,13 +110,60 @@
                               <div id="{{ids[1]}}"></div>
                       </div>
                   </div>
-
-
-
               </div>
+
+                <!--  menu for filter -->
+
+
+                <div class="px-4 py-3" >
+                  <div class=" row mt-3 text-center">
+                    <h4 class="col-4 ml-5">Filter By Country:</h4>
+
+                    <select class="form-control col-5 " id="SpaceAccommodation" name="YogaSpaceAccommodation">
+                        {% for country in all_countries %}
+                        <option name="{{ country[0] }}" selected="selected" data-value="{{ country[1] }}"  id="selectbox-{{country[1]}}">{{ country[0] }}</option>
+                        {% endfor %}
+                    </select>
+
+                  </div>
+
+                </div>
+
+
+
+                <!--charts 2-->
+                <div id="charts2" class="container mt-3 text-center">
+
+                    <!--top two charts-->
+                    <div class="row" mb-13>
+                        <div class="col-6 p-0">
+                            <div id="{{ids[7]}}"></div>
+                        </div>
+                        <div class="col-6 p-0  ">
+                            <div id="{{ids[8]}}"></div>
+                        </div>
+                    </div>
+
+                    <!--bottom two charts-->
+                    <div class="row mt-2">
+                        <div class="col-6 p-0">
+                                <div id="{{ids[5]}}"></div>
+                        </div>
+                        <div class="col-6 p-0 ">
+                                <div id="{{ids[6]}}"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test"></div>
+
+
+
+
+
       </div>
-</div>
-    </body>
+ </div>
+</body>
 
 
 
@@ -187,24 +190,14 @@
           }
 
 
+          $('#SpaceAccommodation').change(function () {
+              var selectedText = $(this).find("option:selected").text();
+
+              $(".test").text(selectedText);
+          });
+
           // checks or unchecks the filter boxes based on the select all box
-          $("#select-all-check").change(function () {
-        	$("#check-boxes input:checkbox").prop('checked', $(this).prop('checked'));
-                });
-
-        		// uncheck select-all box when unchecking another box
-        	$("#form-filter").change(function () {
-         if (!$(this).prop('checked')) {
-        				$("#select-all-check").prop('checked', false);
-        			}
-        		});
-
-        		// check select-all box when re-checking all of the other boxes
-        	$("#form-filter").change(function () {
-        			if ($(".country-check:checked").length == $('.form-check').length - 1) {
-        				$("#select-all-check").prop('checked', true);
-        			}
-        		});
+//          $("#country-selectbox").bfhselectbox('toggle')
 
       </script>
 
