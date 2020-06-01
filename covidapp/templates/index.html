@@ -20,6 +20,8 @@
        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/js/bootstrap-formhelpers.js"></script>
        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/css/bootstrap-formhelpers.css" rel="stylesheet"/>
 
+
+
        <!-- interaction code   JS-->
        <script src="/static/js/interaction.js"> </script>
 
@@ -118,10 +120,13 @@
                 <div class="px-4 py-3" >
                   <div class=" row mt-3 text-center">
                     <h4 class="col-4 ml-5">Filter By Country:</h4>
-
-                    <select class="form-control col-5 " id="SpaceAccommodation" name="YogaSpaceAccommodation">
+                   <select class="form-control col-5 " id="SpaceAccommodation" name="YogaSpaceAccommodation" >
                         {% for country in all_countries %}
-                        <option name="{{ country[0] }}" selected="selected" data-value="{{ country[1] }}"  id="selectbox-{{country[1]}}">{{ country[0] }}</option>
+                                {% if country[0] == 'Iran' %}
+                                      <option name="{{ country[1] }}"    selected="selected" value="{{ country[0] }}"  id="selectbox-{{country[1]}}">{{ country[0] }}</option>
+                                {% else %}
+                                      <option name="{{ country[1] }}"    value="{{ country[0] }}"  id="selectbox-{{country[1]}}">{{ country[0] }}</option>
+							                  {% endif %}
                         {% endfor %}
                     </select>
 
@@ -155,7 +160,7 @@
                     </div>
                 </div>
 
-                <div class="test"></div>
+                <h6 id="test">fbgdfgdsfgdf</h6>
 
 
 
@@ -190,12 +195,21 @@
           }
 
 
-          $('#SpaceAccommodation').change(function () {
-              var selectedText = $(this).find("option:selected").text();
+          //$('#SpaceAccommodation').change(function () {
+        //         var selectedItem = $('#SpaceAccommodation').val();
+        //         alert(selectedItem);
+      //       });
+      $('#SpaceAccommodation').change(function () {
+          var selectedText = $(this).find("option:selected").text();
+          alert(selectedItem);
+          $("h6").text(selectedText);
+      });
 
-              $(".test").text(selectedText);
-          });
-
+      $(document).ready(function () {
+      $('#SpaceAccommodation').change(function () {
+         alert( $('#SpaceAccommodation option:selected').text());
+     });
+ });
           // checks or unchecks the filter boxes based on the select all box
 //          $("#country-selectbox").bfhselectbox('toggle')
 

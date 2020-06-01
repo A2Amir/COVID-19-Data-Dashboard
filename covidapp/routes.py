@@ -23,8 +23,9 @@ def index():
     filter_df = filter_data(dataset, country_name = countries_selected, date = dates  )
     figures = return_figures(map_data, filter_df)
 
+
     # the user selected country
-    filter_df = filter_data(dataset, country_name = ['Iran'], date = dates  )
+    filter_df = filter_data(dataset, country_name = [country_codes[-1][0]], date = dates  )
     user_selected_figure= return_figures(map_data, filter_df)
     for figure in user_selected_figure:
         figures.append(figure)
