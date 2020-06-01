@@ -140,8 +140,9 @@ def return_figures(map_dataset,df):
                          y = df[df['country'] == country].Number_of_positive_cases.tolist(),
                          mode = 'lines',
                          name = str(country),
-                         line=dict(width=1)
-                                    )
+                         line=dict(width=1),
+                         hovertemplate='Date: %{x}  <br> Positive cases: %{y}  ',
+                                )
                          )
 
 
@@ -149,9 +150,7 @@ def return_figures(map_dataset,df):
     layout_one = dict(xaxis = dict( autotick=True),
                     yaxis = dict(title = 'Number of positive cases'),
                     autosize=True,
-                    height=380,
                     hovermode ='closest' ,
-                    hovertemplate='Country: %{name} <br> Number of positive cases: %{y} <br> date: %{x} ',
                     margin=dict(
                         l=50,
                         r=20,
@@ -161,9 +160,9 @@ def return_figures(map_dataset,df):
                     ),
                     paper_bgcolor="lightskyblue",
                     title={
-                            'text': "Number of positive cases (per day)",
-                            'y':0.9,
-                            'x':0.5,
+                            'text': "<b>Number of positive cases (per day)</b>",
+                            'y':0.91,
+                            'x':0.55,
                             'xanchor': 'center',
                             'yanchor': 'below',
                             'font': { 'family': 'Tahoma',
@@ -181,14 +180,15 @@ def return_figures(map_dataset,df):
                          x =df[df['country'] == country].index.tolist(),
                          mode = 'lines',
                          line=dict(width=1),
-                         name = str(country)
+                         name = str(country),
+                         hovertemplate='Date: %{x}  <br> Cum positive cases: %{y}  ',
                                    )
                         )
 
     layout_two = dict(xaxis = dict( autotick=True),
                      yaxis = dict(title = 'Cumulative number of positive cases'),
                      autosize=True,
-                     height=380,
+                     hovermode ='closest' ,
                      margin=dict(
                                  l=50,
                                  r=20,
@@ -197,9 +197,9 @@ def return_figures(map_dataset,df):
                                  pad=4
                                  ),
                      paper_bgcolor="lightskyblue",
-                     title={ 'text': "Cumulative number of positive cases (per day)",
-                             'y':0.9,
-                             'x':0.5,
+                     title={ 'text': "<b>Cumulative number of positive cases</b>",
+                             'y':0.91,
+                             'x':0.55,
                              'xanchor': 'center',
                              'yanchor': 'below',
                               'font': { 'family': 'Tahoma',
@@ -219,14 +219,16 @@ def return_figures(map_dataset,df):
                            x = df[df['country'] == country].index.tolist(),
                            mode = 'lines',
                            line=dict(width=1),
-                           name = str(country)
+                           name = str(country),
+                           hovertemplate='Date: %{x}  <br> Number of deaths: %{y}  ',
+
                                       )
                           )
 
     layout_three = dict(xaxis = dict(autotick=True),
                         yaxis = dict(title = 'Number of deaths'),
                         autosize=True,
-                        height=380,
+                        hovermode ='closest' ,
                         margin=dict(
                                     l=50,
                                     r=20,
@@ -235,9 +237,9 @@ def return_figures(map_dataset,df):
                                     pad=4
                                     ),
                         paper_bgcolor="lightskyblue",
-                        title={ 'text': "Number of deaths (per day)",
-                                'y':0.9,
-                                'x':0.5,
+                        title={ 'text': "<b>Number of deaths (per day) </b>",
+                                'y':0.91,
+                                'x':0.55,
                                 'xanchor': 'center',
                                 'yanchor': 'below',
                                  'font': { 'family': 'Tahoma',
@@ -258,14 +260,16 @@ def return_figures(map_dataset,df):
                           x = df[df['country'] == country].index.tolist(),
                           mode = 'lines',
                           line=dict(width=1),
-                          name = str(country)
+                          name = str(country),
+                          hovertemplate='Date: %{x}  <br> Cum number of deaths: %{y}  ',
+
                           )
                       )
 
     layout_four = dict(xaxis = dict(autotick=True),
                        yaxis = dict(title = 'Cumulative number of deaths'),
                        autosize=True,
-                       height=380,
+                       hovermode ='closest' ,
                        margin=dict(
                                    l=50,
                                    r=20,
@@ -274,9 +278,9 @@ def return_figures(map_dataset,df):
                                    pad=4
                                    ),
                         paper_bgcolor="lightskyblue",
-                        title={ 'text': "Cumulative number of deaths (per day)",
-                                'y':0.9,
-                                'x':0.5,
+                        title={ 'text': "<b>Cumulative number of deaths </b>",
+                                'y':.91,
+                                'x':0.55,
                                 'xanchor': 'center',
                                 'yanchor': 'below',
                                 'font': { 'family': 'Tahoma',
