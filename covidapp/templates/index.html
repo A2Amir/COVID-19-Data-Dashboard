@@ -22,8 +22,31 @@
 
 
 
-       <!-- interaction code   JS-->
-       <script src="/static/js/interaction.js"> </script>
+       <!-- interaction code JS-->
+       <script type="text/javascript">
+
+        $(document).ready(function(){
+                   $('#SpaceAccommodation').change(function(){
+                     alert($(this).val());
+
+                     alert($('#country_selector').val());
+
+
+                     $("#country_selector").prop("value",$(this).val());
+          //          $('#form-filter').attr($('#country_selector').attr('value'),$(this).val());
+                    alert($('#country_selector').val());
+
+                   $('#form-filter').submit();
+
+
+
+
+                   });
+              });
+
+
+       </script>
+
 
     </head>
 
@@ -117,22 +140,23 @@
                 <!--  menu for filter -->
 
 
-                <div class="px-4 py-3" >
                   <div class=" row mt-3 text-center">
                     <h4 class="col-4 ml-5">Filter By Country:</h4>
-                   <select class="form-control col-5 " id="SpaceAccommodation" name="YogaSpaceAccommodation" >
-                        {% for country in all_countries %}
-                                {% if country[0] == 'Iran' %}
-                                      <option name="{{ country[1] }}"    selected="selected" value="{{ country[0] }}"  id="selectbox-{{country[1]}}">{{ country[0] }}</option>
-                                {% else %}
-                                      <option name="{{ country[1] }}"    value="{{ country[0] }}"  id="selectbox-{{country[1]}}">{{ country[0] }}</option>
-							                  {% endif %}
-                        {% endfor %}
-                    </select>
-
+                    <form name="FilterByCountry" method="post" action="/" id="form-filter"  >
+                      <select class="form-control col-5 " id="SpaceAccommodation"  onchange >
+                          {% for country in all_countries %}
+                                  {% if country[0] == 'Iran' %}
+                                        <option name="{{ country[1] }}"  value="{{ country[0] }}"  id="selectbox-{{country[1]}}" selected="selected">{{ country[0] }}</option>
+                                  {% else %}
+                                        <option name="{{ country[1] }}"   value="{{ country[0] }}"  id="selectbox-{{country[1]}}">{{ country[0] }}</option>
+  							                  {% endif %}
+                          {% endfor %}
+                          <input id="country_selector" type='hidden' name='hidden_value' value='hidden'  />
+                      </select>
+                    </form>
                   </div>
 
-                </div>
+
 
 
 
@@ -160,32 +184,21 @@
                     </div>
                 </div>
 
-                <h6 id="test">fbgdfgdsfgdf</h6>
 
 
 
 
 
-      </div>
- </div>
-</body>
+            </div>
+     </div>
 
 
-
-
-
-    <!--footer section-->
-    <div id="footer" class="container"></div>
-
-
-
-
-
+  </body>
   <footer>
 
-      <script type="text/javascript">
-          // plots the figure with id
-          // id much match the div id above in the html
+
+    <script type="text/javascript">
+
           var figures = {{figuresJSON | safe}};
           var ids = {{ids | safe}};
           for(var i in figures) {
@@ -194,28 +207,10 @@
                   figures[i].layout || {});
           }
 
-
-          //$('#SpaceAccommodation').change(function () {
-        //         var selectedItem = $('#SpaceAccommodation').val();
-        //         alert(selectedItem);
-      //       });
-      $('#SpaceAccommodation').change(function () {
-          var selectedText = $(this).find("option:selected").text();
-          alert(selectedItem);
-          $("h6").text(selectedText);
-      });
-
-      $(document).ready(function () {
-      $('#SpaceAccommodation').change(function () {
-         alert( $('#SpaceAccommodation option:selected').text());
-     });
- });
-          // checks or unchecks the filter boxes based on the select all box
-//          $("#country-selectbox").bfhselectbox('toggle')
-
-      </script>
-
+    </script>
   </footer>
 
+</html>
 
+  </body>
 </html>
