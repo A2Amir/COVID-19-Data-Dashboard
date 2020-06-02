@@ -40,6 +40,19 @@
               });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
        </script>
 
 
@@ -135,10 +148,10 @@
                 <!--  menu for filter -->
 
 
-                  <div class=" row mt-3 text-center">
+                  <div class=" row mt-5 text-center">
                     <h4 class="col-4 ml-5">Filter By Country:</h4>
                     <form name="FilterByCountry" method="post" action="/" id="form-filter"  >
-                      <select class="form-control col-5 " id="SpaceAccommodation"  onchange >
+                      <select class="form-control col-5 " id="SpaceAccommodation" title='The list is sorted based on the most affected countries.' onchange >
                           {% for country in all_countries %}
                                  {% if country[0] == default_county[0] %}
                                       <option name="{{ country[1] }}"  value="{{ country[0] }}"  id="selectbox-{{country[1]}}"  selected="selected">{{ country[0] }}</option>
