@@ -31,7 +31,7 @@
   <!--CSS Code-->
   <style media="screen">
   select {
-    width: 250px;
+    width: 350px;
     margin: 5px;
   }
   </style>
@@ -143,9 +143,9 @@
 
       <!--  menu for filter -->
       <div class=" row mt-5 text-center container-fluid">
-        <h4 class="col-4 ml-5">Filter By Country:</h4>
+        <h4 class="ml-3">Filter By Country:</h4>
         <form name="FilterByCountry" method="post" action="/" id="form-filter">
-          <select class="form-control col-7 " id="SpaceAccommodation" title='The list is sorted based on the most affected countries.'
+          <select class="form-control col-7 ml-2" id="SpaceAccommodation" title='The list is sorted based on the most affected countries.'
             onchange>
             {% for country in all_countries %} {% if country[0] == default_county[0] %}
             <option name="{{ country[1] }}" value="{{ country[0] }}" id="selectbox-{{country[1]}}"

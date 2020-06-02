@@ -1,7 +1,7 @@
 # COVID-19 Dashboard
 
-## Link to Coronavirus API Data Dashboard: 
-<center>https://world-bank-dashboard-api.herokuapp.com</center>
+## Link to Coronavirus API Data Dashboard:
+<center>dgfdsdsfdsfdsfdsfdsm</center>
 
 
 ## Introduction:
@@ -38,6 +38,8 @@ Install the packages with
 
 ## Installing
 
-On a MacOS/linux system, installation is easy. Open a terminal, and go into the directory with the flask app files. Run python **worldbank.py** in the terminal.
+On a MacOS/linux/Window system, installation is easy. Open a terminal, and go into the directory with the flask app files. Run python **python covid19.py** in the terminal then open a new web browser window, and type the following in the address bar:
 
-# Seeing your App in the Workspace
+                                               http://localhost:3001/
+
+   DON'T FORGET TO INCLUDE-3001. You should be able to see the web app. The number 3001 represents the port for accessing your web app.

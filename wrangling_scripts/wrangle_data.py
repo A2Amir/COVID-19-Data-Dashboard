@@ -140,7 +140,7 @@ def return_figures(map_dataset,df):
                          y = df[df['country'] == country].Number_of_positive_cases.tolist(),
                          mode = 'lines',
                          name = str(country),
-                         line=dict(width=1),
+                         line=dict(width=1.5),
                          hovertemplate='Date: %{x}  <br> Positive cases: %{y}  ',
                                 )
                          )
@@ -181,7 +181,7 @@ def return_figures(map_dataset,df):
                          y = df[df['country'] == country].Cumulative_number_of_positive_cases.tolist(),
                          x =df[df['country'] == country].index.tolist(),
                          mode = 'lines',
-                         line=dict(width=1),
+                         line=dict(width=1.5),
                          name = str(country),
                          hovertemplate='Date: %{x}  <br> Cum positive cases: %{y}  ',
                                    )
@@ -222,7 +222,7 @@ def return_figures(map_dataset,df):
                            y = df[df['country'] == country].Number_of_deaths.tolist(),
                            x = df[df['country'] == country].index.tolist(),
                            mode = 'lines',
-                           line=dict(width=1),
+                           line=dict(width=1.5),
                            name = str(country),
                            hovertemplate='Date: %{x}  <br> Number of deaths: %{y}  ',
 
@@ -263,7 +263,7 @@ def return_figures(map_dataset,df):
                           y = df[df['country'] == country].Cumulative_number_of_deaths.tolist(),
                           x = df[df['country'] == country].index.tolist(),
                           mode = 'lines',
-                          line=dict(width=1),
+                          line=dict(width=1.5),
                           name = str(country),
                           hovertemplate='Date: %{x}  <br> Cum number of deaths: %{y}  ',
 
