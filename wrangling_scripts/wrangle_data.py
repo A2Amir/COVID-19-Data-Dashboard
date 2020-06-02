@@ -330,6 +330,7 @@ def return_figures(map_dataset,df):
                         accesstoken='pk.eyJ1IjoiYW1pcnppYWVlIiwiYSI6ImNrYXNlZXd4eDBpcXAzMG1zOTR1NWt2bzUifQ.9vOmF1-LoxDggkQshH6sbQ',
                         bearing=0,
                         pitch=0,
+                        config={'responsive': True},
                         zoom=0),
                         mapbox_style="stamen-terrain",
                         margin=dict(
