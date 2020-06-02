@@ -9,7 +9,7 @@
 
 This is a flask app that visualizes data from the COVID-19 API. Data is pulled directly from the API and then visualized using Plotly.
 
-This flask app first gives an overview of the three base languages for web development: **html, css, and JavaScript** to work with the web template and make a data dashboard. If you want to customize the dashboard, you can do so with just a few changes to the html code but the underlying technologies of data dashboard will be css, html, JavaScript, and Python.
+This flask app first gives an overview of the three base languages for web development: **html, css**, and **JavaScript** to work with the web template and make a data dashboard. If you want to customize the dashboard, you can do so with just a few changes to the html code but the underlying technologies of data dashboard will be css, html, JavaScript, and Python.
 
 *	Basics of a web app
   *	[html](https://www.w3schools.com/tags/default.asp)
