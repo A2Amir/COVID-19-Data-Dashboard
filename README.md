@@ -2,7 +2,10 @@
 
 ## Link to Webapp: Coronavirus API Data Dashboard
 
-<p style="text-align: center;"> <b>https://world-bank-dashboard-api.herokuapp.com</b> </p>
+<div class="myWrapper" markdown="1">
+<p style="text-align: center;"> https://world-bank-dashboard-api.herokuapp.com </p>
+
+</div>
 
 
 ## Introduction:
