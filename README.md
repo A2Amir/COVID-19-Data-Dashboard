@@ -40,6 +40,6 @@ Install the packages with
 
 On a MacOS/linux/Window system, installation is easy. Open a terminal, and go into the directory with the flask app files. Run python **python covid19.py** in the terminal then open a new web browser window, and type the following in the address bar:
 
-                                               http://localhost:3001/
+          http://localhost:3001/
 
-   DON'T FORGET TO INCLUDE-3001. You should be able to see the web app. The number 3001 represents the port for accessing your web app.
+* DON'T FORGET TO INCLUDE-3001. You should be able to see the web app. The number 3001 represents the port for accessing your web app.
