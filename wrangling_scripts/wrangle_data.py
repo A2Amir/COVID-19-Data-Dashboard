@@ -194,7 +194,7 @@ def return_figures(map_dataset,df):
                      hovermode ='closest' ,
                      margin=dict(
                                  l=50,
-                                 r=20,
+                                 r=50,
                                  b=50,
                                  t=60,
                                  pad=.2
@@ -236,7 +236,7 @@ def return_figures(map_dataset,df):
                         hovermode ='closest' ,
                         margin=dict(
                                     l=50,
-                                    r=10,
+                                    r=20,
                                     b=50,
                                     t=60,
                                     pad=.2
@@ -277,7 +277,7 @@ def return_figures(map_dataset,df):
                        hovermode ='closest' ,
                        margin=dict(
                                    l=50,
-                                   r=20,
+                                   r=50,
                                    b=50,
                                    t=60,
                                    pad=.2

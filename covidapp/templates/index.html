@@ -64,7 +64,7 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="https://www.who.int&">World Health Organization</a>
+          <a class="nav-link" href="https://www.who.int">World Health Organization</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="https://www.statworx.com/at/blog/making-of-a-free-api-for-covid-19-data/">COVID-19 Data Bank</a>
@@ -118,14 +118,14 @@
         <h3>The Top five most-affected countries</h3>
       </div>
       <!--the five top most affected charts-->
-      <div id="five_top_charts" class="container mt-3 text-center">
+      <div id="five_top_charts" class="container-fluid mt-3 text-center">
 
         <!--the top two charts of the five top most affected charts-->
         <div class="row" mb-13>
-          <div class="col-6 p-0">
+          <div class="col-6 p-0  ">
             <div id="{{ids[2]}}"></div>
           </div>
-          <div class="col-6 p-0  ">
+          <div class="col-6 p-0 ">
             <div id="{{ids[3]}}"></div>
           </div>
         </div>
@@ -142,7 +142,7 @@
       </div>
 
       <!--  menu for filter -->
-      <div class=" row mt-5 text-center">
+      <div class=" row mt-5 text-center container-fluid">
         <h4 class="col-4 ml-5">Filter By Country:</h4>
         <form name="FilterByCountry" method="post" action="/" id="form-filter">
           <select class="form-control col-7 " id="SpaceAccommodation" title='The list is sorted based on the most affected countries.'
@@ -160,7 +160,7 @@
 
 
      <!--the filter user selected charts -->
-      <div id="charts2" class="container mt-3 text-center">
+      <div id="charts2" class="container-fluid mt-3 mr-10 text-center">
 
         <!--the top two charts of the filter user selected charts-->
         <div class="row" mb-13>
