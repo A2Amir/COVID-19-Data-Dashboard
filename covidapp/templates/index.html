@@ -27,14 +27,9 @@
 
         $(document).ready(function(){
                    $('#SpaceAccommodation').change(function(){
-                     alert($(this).val());
-
-                     alert($('#country_selector').val());
-
-
-                     $("#country_selector").prop("value",$(this).val());
-          //          $('#form-filter').attr($('#country_selector').attr('value'),$(this).val());
-                    alert($('#country_selector').val());
+                    var selected_opt= $(this).val()
+                   $("#country_selector").prop("value",selected_opt);
+                  //alert($('#country_selector').val());
 
                    $('#form-filter').submit();
 
@@ -145,11 +140,11 @@
                     <form name="FilterByCountry" method="post" action="/" id="form-filter"  >
                       <select class="form-control col-5 " id="SpaceAccommodation"  onchange >
                           {% for country in all_countries %}
-                                  {% if country[0] == 'Iran' %}
-                                        <option name="{{ country[1] }}"  value="{{ country[0] }}"  id="selectbox-{{country[1]}}" selected="selected">{{ country[0] }}</option>
-                                  {% else %}
-                                        <option name="{{ country[1] }}"   value="{{ country[0] }}"  id="selectbox-{{country[1]}}">{{ country[0] }}</option>
-  							                  {% endif %}
+                                 {% if country[0] == default_county[0] %}
+                                      <option name="{{ country[1] }}"  value="{{ country[0] }}"  id="selectbox-{{country[1]}}"  selected="selected">{{ country[0] }}</option>
+                                 {% else %}
+                                       <option name="{{ country[1] }}"   value="{{ country[0] }}"  id="selectbox-{{country[1]}}">{{ country[0] }}</option>
+                                 {% endif %}
                           {% endfor %}
                           <input id="country_selector" type='hidden' name='hidden_value' value='hidden'  />
                       </select>

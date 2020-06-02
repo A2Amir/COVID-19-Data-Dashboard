@@ -13,17 +13,17 @@ import json, plotly
 @app.route('/index', methods=['POST', 'GET'])
 def index():
 
-
+    default_county  = ['United_States_of_America']
 
     dataset = get_dataset()
     map_data = set_map_data(dataset)
-    country_default, country_codes = get_the_top(map_data)
+    five_top_countries, country_codes = get_the_top(map_data)
 
 
-    countries_selected = [country for country, code in country_default]
+    five_top_countries = [country for country, code in five_top_countries]
     dates=[dataset.index.min(), dataset.index.max()]
     # the five top countries filter
-    five_top_df = filter_data(dataset, country_name = countries_selected, date = dates  )
+    five_top_df = filter_data(dataset, country_name = five_top_countries, date = dates  )
     figures = return_figures(map_data, five_top_df)
 
 
@@ -31,20 +31,17 @@ def index():
         #figures.append(figure.items())
         # Parse the POST request countries list
     if (request.method == 'POST') and request.form :
-        print(list(request.form.values()))
-    		#figures = return_figures(request.form)
-
-        # the user selected country
+         # the user selected country
         filter_df = filter_data(dataset, country_name = list(request.form.values()), date = dates  )
         user_selected_figure= return_figures(map_data, filter_df)
+        default_county = list(request.form.values())
 
     else:
-        filter_df = filter_data(dataset, country_name = ['Iran'], date = dates  )
+        filter_df = filter_data(dataset, country_name = default_county, date = dates  )
         user_selected_figure= return_figures(map_data, filter_df)
 
     for figure in user_selected_figure:
         figures.append(figure)
-
 
 
 
@@ -59,4 +56,4 @@ def index():
                            ids=ids,
                            figuresJSON=figuresJSON,
                            all_countries=country_codes,
-                           countries_selected=countries_selected)
+                           default_county=default_county)
