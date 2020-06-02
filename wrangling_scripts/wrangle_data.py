@@ -167,11 +167,11 @@ def return_figures(map_dataset,df):
                             'xanchor': 'center',
                             'yanchor': 'below',
                             'font': { 'family': 'Tahoma',
-                                      'size': 12
+                                      'size': 17
                                      }
                           },
                     showlegend=True,
-                    legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", size=11, color="black")),
+                    legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", size=12, color="black")),
                     )
 
     # second chart plot
@@ -206,11 +206,11 @@ def return_figures(map_dataset,df):
                              'xanchor': 'center',
                              'yanchor': 'below',
                               'font': { 'family': 'Tahoma',
-                                        'size': 12
+                                        'size': 17
                                       }
                              },
                         showlegend=True,
-                        legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", size=11, color="black")),
+                        legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", size=12, color="black")),
                         )
 
 
@@ -248,11 +248,11 @@ def return_figures(map_dataset,df):
                                 'xanchor': 'center',
                                 'yanchor': 'below',
                                  'font': { 'family': 'Tahoma',
-                                            'size': 12
+                                            'size': 17
                                          }
                                 },
                         showlegend=True,
-                        legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", size=11, color="black")),
+                        legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", size=12, color="black")),
 
                                         )
 
@@ -289,11 +289,11 @@ def return_figures(map_dataset,df):
                                 'xanchor': 'center',
                                 'yanchor': 'below',
                                 'font': { 'family': 'Tahoma',
-                                          'size': 12
+                                          'size': 17
                                          }
                               },
                         showlegend=True,
-                        legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", size=11, color="black")),
+                        legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", size=12, color="black")),
 
                         )
     # fifth chart
