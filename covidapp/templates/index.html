@@ -1,238 +1,209 @@
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
-     <head>
+<head>
 
-       <meta charset="utf-8">
+  <meta charset="utf-8">
 
-       <title> COVID-19 Data Dashboard </title>
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <script src="https://cdn.plot.ly/plotly-latest.min.js"> </script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-json/2.6.0/jquery.json.min.js" integrity="sha256-Ac6pM19lP690qI07nePO/yY6Ut3c7KM9AgNdnc5LtrI=" crossorigin="anonymous"></script>
-
-
-       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/js/bootstrap-formhelpers.js"></script>
-       <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/css/bootstrap-formhelpers.css" rel="stylesheet"/>
-
-
-      <style media="screen">
-
-
-        select {
-
-            width: 250px;
-
-            margin: 10px;
-
-        }
-      </style>
-
-       <!-- interaction code JS-->
-       <script type="text/javascript">
-
-        $(document).ready(function(){
-                   $('#SpaceAccommodation').change(function(){
-                    var selected_opt= $(this).val()
-                   $("#country_selector").prop("value",selected_opt);
-                  //alert($('#country_selector').val());
-
-                   $('#form-filter').submit();
+  <title> COVID-19 Data Dashboard </title>
+  <!--import script files needed fro plotly and bootstrap-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-json/2.6.0/jquery.json.min.js"
+    integrity="sha256-Ac6pM19lP690qI07nePO/yY6Ut3c7KM9AgNdnc5LtrI=" crossorigin="anonymous"></script>
 
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/js/bootstrap-formhelpers.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/css/bootstrap-formhelpers.css"
+    rel="stylesheet" />
+
+  <!--CSS Code-->
+  <style media="screen">
+  select {
+    width: 250px;
+    margin: 5px;
+  }
+  </style>
+
+  <script type="text/javascript">
+
+  //to send filter by country value to the backend
+  $(document).ready(function() {
+    $('#SpaceAccommodation').change(function() {
+      var selected_opt = $(this).val()
+      $("#country_selector").prop("value", selected_opt);
+      $('#form-filter').submit();
+    });
+  });
+  </script>
 
 
-                   });
-              });
+</head>
+
+<body>
+
+  <!--navbar links-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <a class="navbar-brand" href=""> Coronavirus Data Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+      aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.who.int&">World Health Organization</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.statworx.com/at/blog/making-of-a-free-api-for-covid-19-data/">COVID-19 Data Bank</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!--middle section-->
+  <div class="row">
+
+    <!--social media buttons column-->
+    <div class="col-1 border-right">
+      <div id="follow-me" class="mt-3">
+        <a href="https://www.linkedin.com/in/ziaee-a-amir/">
+          <img src="/static/imgs/linkedinlogo.png" alt="linkedin" class="img-fluid mb-4 ml-2"
+            title="Follow me on linkedin">
+        </a>
+        <a href="https://github.com/A2Amir">
+          <img src="/static/imgs/githublogo.png" alt="github" class="img-fluid ml-2" title="Follow me on Github">
+        </a>
+        <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public">
+          <img src="/static/imgs/who1.png" alt="who" class="img-fluid ml-2 mt-3" title="Advise against covid-19">
+        </a>
+      </div>
+    </div>
+
+    <!--visualizations column-->
+    <div class="col-11">
+
+      <!--chart descriptions-->
+      <div id="middle-info" class="mt-1">
+
+        <h3 id="tag-line1">COVID-19 Data Dashboard</h3>
+        <h6 id="tag-line2" class="text-muted">Spread Out Visualizaiton</h6>
+
+      </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-       </script>
-
-
-    </head>
-
-    <body>
-
-      <!--navbar links-->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-         <a class="navbar-brand" href="">  Coronavirus Data Dashboard</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse"
-        data-target="#navbarTogglerDemo02"
-        aria-controls="navbarTogglerDemo02" aria-expanded="false"
-        aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="https://www.who.int&">World Health Organization</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://www.statworx.com/at/blog/making-of-a-free-api-for-covid-19-data/">COVID-19 Data Bank</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      <!--middle section-->
-      <div class="row">
-
-          <!--social media buttons column-->
-          <div class="col-1 border-right">
-              <div id="follow-me" class="mt-3">
-                  <a href="https://www.linkedin.com/in/ziaee-a-amir/">
-                      <img src="/static/imgs/linkedinlogo.png" alt="linkedin" class="img-fluid mb-4 ml-2" title="Follow me on linkedin">
-                  </a>
-                  <a href="https://github.com/A2Amir">
-                      <img src="/static/imgs/githublogo.png" alt="github" class="img-fluid ml-2"  title="Follow me on Github">
-                  </a>
-                  <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public">
-                      <img src="/static/imgs/who1.png" alt="who" class="img-fluid ml-2 mt-3"  title="Advise against covid-19">
-                  </a>
-              </div>
+      <!--Create another row and place the map  in that row-->
+      <div class="row container-fluid m-0 p-0">
+        <div class="col-12">
+          <div id="chart5 ">
+            <div class="m-0 p-0" id="{{ids[4]}}"></div>
           </div>
+        </div>
+      </div>
 
-          <!--visualizations column-->
-          <div class="col-11">
+	   	<!--chart descriptions-->
+      <div class=" container mt-3 text-center">
+        <h3>The Top five most-affected countries</h3>
+      </div>
+      <!--the five top most affected charts-->
+      <div id="five_top_charts" class="container mt-3 text-center">
 
-              <!--chart descriptions-->
-              <div id="middle-info" class="mt-1">
+        <!--the top two charts of the five top most affected charts-->
+        <div class="row" mb-13>
+          <div class="col-6 p-0">
+            <div id="{{ids[2]}}"></div>
+          </div>
+          <div class="col-6 p-0  ">
+            <div id="{{ids[3]}}"></div>
+          </div>
+        </div>
 
-                  <h3 id="tag-line1">COVID-19 Data Dashboard</h3>
-                  <h6 id="tag-line2" class="text-muted">Spread Out Visualizaiton</h6>
+        <!--the bottom two charts of the five top most affected charts-->
+        <div class="row mt-2">
+          <div class="col-6 p-0">
+            <div id="{{ids[0]}}"></div>
+          </div>
+          <div class="col-6 p-0 ">
+            <div id="{{ids[1]}}"></div>
+          </div>
+        </div>
+      </div>
 
-              </div>
-
-
-              <!--Create another row and place a fifth chart in that row-->
-              <div class="row container-fluid m-0 p-0">
-                <div class="col-12">
-                  <div id="chart5 ">
-                      <div class="m-0 p-0" id="{{ids[4]}}"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class=" container mt-3 text-center">
-                  <h3>The Top five most-affected countries</h3>
-              </div>
-                            <!--charts-->
-              <div id="charts" class="container mt-3 text-center">
-
-                  <!--top two charts-->
-                  <div class="row" mb-13>
-                      <div class="col-6 p-0">
-                          <div id="{{ids[2]}}"></div>
-                      </div>
-                      <div class="col-6 p-0  ">
-                          <div id="{{ids[3]}}"></div>
-                      </div>
-                  </div>
-
-                  <!--bottom two charts-->
-                  <div class="row mt-2">
-                      <div class="col-6 p-0">
-                              <div id="{{ids[0]}}"></div>
-                      </div>
-                      <div class="col-6 p-0 ">
-                              <div id="{{ids[1]}}"></div>
-                      </div>
-                  </div>
-              </div>
-
-                <!--  menu for filter -->
+      <!--  menu for filter -->
+      <div class=" row mt-5 text-center">
+        <h4 class="col-4 ml-5">Filter By Country:</h4>
+        <form name="FilterByCountry" method="post" action="/" id="form-filter">
+          <select class="form-control col-7 " id="SpaceAccommodation" title='The list is sorted based on the most affected countries.'
+            onchange>
+            {% for country in all_countries %} {% if country[0] == default_county[0] %}
+            <option name="{{ country[1] }}" value="{{ country[0] }}" id="selectbox-{{country[1]}}"
+              selected="selected">{{ country[0] }}</option>
+            {% else %}
+            <option name="{{ country[1] }}" value="{{ country[0] }}" id="selectbox-{{country[1]}}">{{ country[0] }}</option>
+            {% endif %} {% endfor %}
+            <input id="country_selector" type='hidden' name='hidden_value' value='hidden' />
+          </select>
+        </form>
+      </div>
 
 
-                  <div class=" row mt-5 text-center">
-                    <h4 class="col-4 ml-5">Filter By Country:</h4>
-                    <form name="FilterByCountry" method="post" action="/" id="form-filter"  >
-                      <select class="form-control col-7 " id="SpaceAccommodation" title='The list is sorted based on the most affected countries.' onchange >
-                          {% for country in all_countries %}
-                                 {% if country[0] == default_county[0] %}
-                                      <option name="{{ country[1] }}"  value="{{ country[0] }}"  id="selectbox-{{country[1]}}"  selected="selected">{{ country[0] }}</option>
-                                 {% else %}
-                                       <option name="{{ country[1] }}"   value="{{ country[0] }}"  id="selectbox-{{country[1]}}">{{ country[0] }}</option>
-                                 {% endif %}
-                          {% endfor %}
-                          <input id="country_selector" type='hidden' name='hidden_value' value='hidden'  />
-                      </select>
-                    </form>
-                  </div>
+     <!--the filter user selected charts -->
+      <div id="charts2" class="container mt-3 text-center">
+
+        <!--the top two charts of the filter user selected charts-->
+        <div class="row" mb-13>
+          <div class="col-6 p-0">
+            <div id="{{ids[7]}}"></div>
+          </div>
+          <div class="col-6 p-0  ">
+            <div id="{{ids[8]}}"></div>
+          </div>
+        </div>
+
+        <!--the bottom two charts of the filter user selected charts-->
+        <div class="row mt-2">
+          <div class="col-6 p-0">
+            <div id="{{ids[5]}}"></div>
+          </div>
+          <div class="col-6 p-0 ">
+            <div id="{{ids[6]}}"></div>
+          </div>
+        </div>
+      </div>
 
 
+    </div>
+  </div>
 
 
+</body>
+<footer>
 
-                <!--charts 2-->
-                <div id="charts2" class="container mt-3 text-center">
+  <script type="text/javascript">
+  // plots the figure by id using Plotly
+  // id much match the div id above in the html
+        var figures = {{figuresJSON | safe}};
+        var ids = {{ids | safe}};
+        for(var i in figures) {
+            Plotly.plot(ids[i],
+                figures[i].data,
+                figures[i].layout || {});
+        }
 
-                    <!--top two charts-->
-                    <div class="row" mb-13>
-                        <div class="col-6 p-0">
-                            <div id="{{ids[7]}}"></div>
-                        </div>
-                        <div class="col-6 p-0  ">
-                            <div id="{{ids[8]}}"></div>
-                        </div>
-                    </div>
-
-                    <!--bottom two charts-->
-                    <div class="row mt-2">
-                        <div class="col-6 p-0">
-                                <div id="{{ids[5]}}"></div>
-                        </div>
-                        <div class="col-6 p-0 ">
-                                <div id="{{ids[6]}}"></div>
-                        </div>
-                    </div>
-                </div>
+  </script>
+</footer>
 
 
-
-
-
-
-            </div>
-     </div>
-
-
-  </body>
-  <footer>
-
-
-    <script type="text/javascript">
-
-          var figures = {{figuresJSON | safe}};
-          var ids = {{ids | safe}};
-          for(var i in figures) {
-              Plotly.plot(ids[i],
-                  figures[i].data,
-                  figures[i].layout || {});
-          }
-
-    </script>
-  </footer>
-
-</html>
-
-  </body>
 </html>
