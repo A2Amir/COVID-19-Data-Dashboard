@@ -21,6 +21,17 @@
        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/css/bootstrap-formhelpers.css" rel="stylesheet"/>
 
 
+      <style media="screen">
+
+
+        select {
+
+            width: 250px;
+
+            margin: 10px;
+
+        }
+      </style>
 
        <!-- interaction code JS-->
        <script type="text/javascript">
@@ -151,7 +162,7 @@
                   <div class=" row mt-5 text-center">
                     <h4 class="col-4 ml-5">Filter By Country:</h4>
                     <form name="FilterByCountry" method="post" action="/" id="form-filter"  >
-                      <select class="form-control col-5 " id="SpaceAccommodation" title='The list is sorted based on the most affected countries.' onchange >
+                      <select class="form-control col-7 " id="SpaceAccommodation" title='The list is sorted based on the most affected countries.' onchange >
                           {% for country in all_countries %}
                                  {% if country[0] == default_county[0] %}
                                       <option name="{{ country[1] }}"  value="{{ country[0] }}"  id="selectbox-{{country[1]}}"  selected="selected">{{ country[0] }}</option>
