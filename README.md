@@ -1,11 +1,7 @@
 # COVID-19 Dashboard
 
 ## Link to Webapp: Coronavirus API Data Dashboard
-
-<div class="myWrapper" markdown="1">
-<p style="text-align: center;"> https://world-bank-dashboard-api.herokuapp.com </p>
-
-</div>
+<center>https://world-bank-dashboard-api.herokuapp.com</center>
 
 
 ## Introduction:
