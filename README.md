@@ -101,8 +101,8 @@ On a MacOS/linux/Window system, installation is easy. Open a terminal, and go in
 
 8. The next steps involved some housekeeping:
 
-*	Remove app.run() from covid19.py
-*	Type **cd web_app** into the Terminal so that you are inside the folder with your web app code
+	  * Remove app.run() from covid19.py
+   * Type cd web_app into the Terminal so that you are inside the folder with your web app code
  
 9. Then create a proc file, which tells Heroku what to do when starting your web app:
      
@@ -117,6 +117,7 @@ On a MacOS/linux/Window system, installation is easy. Open a terminal, and go in
 10. Next, create a requirements file, which lists all of the Python library that your app depends on:
 
         pip freeze > requirements.txt
+        
 11. Initialize a git repository and make a commit:
 
         git init
@@ -127,11 +128,11 @@ On a MacOS/linux/Window system, installation is easy. Open a terminal, and go in
    
         heroku create my-app-name
    
-   where my-app-name is a unique name that nobody else on Heroku has already used. The **heroku create** command should create a git repository on Heroku and a web address for accessing your web app. You can check that a remote repository was added to your git repository with the following terminal command:
+   Where my-app-name is a unique name that nobody else on Heroku has already used. The **heroku create** command should create a git repository on Heroku and a web address for accessing your web app. You can check that a remote repository was added to your git repository with the following terminal command:
     
-        git remote -v
+    git remote -v
    Next, you need to push your git repository to the remote heroku repository with this command:
    
-       git push heroku master
+    git push heroku master
        
  Now, you can type your web app's address in the browser to see the results.
