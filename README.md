@@ -53,10 +53,11 @@ On a MacOS/linux/Window system, installation is easy. Open a terminal, and go in
        
 * Make sure that the web app is working locally.
 2. Next, go to [www.heroku.com](https://www.heroku.com/) and create an account if you haven't already.
-3.Create a new folder and move all of the covid19-web app folders and files into the folder:
 
-      mkdir web_app
-      mv -t web_app data covidapp wrangling_scripts covid19.py
+3. Create a new folder and move all of the covid19-web app folders and files into the folder:
+
+       mkdir web_app
+       mv -t web_app data covidapp wrangling_scripts covid19.py
       
 4. Update python using the terminal command **conda update python**
 
@@ -76,7 +77,7 @@ On a MacOS/linux/Window system, installation is easy. Open a terminal, and go in
   
       pip install flask pandas plotly gunicorn plotly-express numpy  requests matplotlib
       
-6.The next step is to install the [heroku command line tools](https://devcenter.heroku.com/articles/heroku-cli):
+6. The next step is to install the [heroku command line tools](https://devcenter.heroku.com/articles/heroku-cli):
 
 
 * Windows System:
@@ -88,22 +89,22 @@ On a MacOS/linux/Window system, installation is easy. Open a terminal, and go in
 
       sudo snap install --classic heroku
       
- then check the installation with the command:
+  Then check the installation with the command:
 
-     heroku —-version
+      heroku —-version
      
-7.log into heroku with the following comman
-     
-     heroku login
+7. log into heroku with the following comman
+   
+       heroku login
   
-  Heroku asks for your account email address and password, which you type into the terminal and press enter.
+ * Heroku asks for your account email address and password, which you type into the terminal and press enter.
 
 8. The next steps involved some housekeeping:
 
-*	remove app.run() from covid19.py
-*	type **cd web_app** into the Terminal so that you are inside the folder with your web app code
+*	Remove app.run() from covid19.py
+*	Type **cd web_app** into the Terminal so that you are inside the folder with your web app code
  
- 9. Then create a proc file, which tells Heroku what to do when starting your web app:
+9. Then create a proc file, which tells Heroku what to do when starting your web app:
      
         touch Procfile
     
@@ -116,7 +117,7 @@ On a MacOS/linux/Window system, installation is easy. Open a terminal, and go in
 10. Next, create a requirements file, which lists all of the Python library that your app depends on:
 
         pip freeze > requirements.txt
-11. initialize a git repository and make a commit:
+11. Initialize a git repository and make a commit:
 
         git init
         git add .
@@ -133,4 +134,4 @@ On a MacOS/linux/Window system, installation is easy. Open a terminal, and go in
    
        git push heroku master
        
-   Now, you can type your web app's address in the browser to see the results.
+ Now, you can type your web app's address in the browser to see the results.
