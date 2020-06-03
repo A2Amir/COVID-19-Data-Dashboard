@@ -70,8 +70,8 @@ On a MacOS/linux/Window system, installation is easy. Open a terminal, and go in
    
 * Linux Systems:
 
-      python3 -m venv worldbankvenv
-      source worldbankenv/bin/activate
+      python3 -m venv covid19_venv
+      source covid19_venv/bin/activate
 
   Then, pip install the Python libraries needed for the web app (In this case those are presented below)
   
