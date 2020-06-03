@@ -154,8 +154,8 @@ def return_figures(map_dataset,df):
                     hovermode ='closest' ,
                     config={'responsive': True},
                     margin=dict(
-                        l=50,
-                        r=20,
+                        l=60,
+                        r=60,
                         b=50,
                         t=60,
                         pad=.2
@@ -173,7 +173,7 @@ def return_figures(map_dataset,df):
                                      }
                           },
                     showlegend=True,
-                    legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", size=12, color="black")),
+                    legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif",autosize=True ,color="black"), responsive=True),
                     )
 
     # second chart plot
@@ -196,8 +196,8 @@ def return_figures(map_dataset,df):
                      config={'responsive': True},
                      hovermode ='closest' ,
                      margin=dict(
-                                 l=50,
-                                 r=50,
+                                 l=60,
+                                 r=60,
                                  b=50,
                                  t=60,
                                  pad=.2
@@ -214,7 +214,7 @@ def return_figures(map_dataset,df):
                                       }
                              },
                         showlegend=True,
-                        legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", size=12, color="black")),
+                        legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", autosize=True, color="black"), responsive=True),
                         )
 
 
@@ -240,8 +240,8 @@ def return_figures(map_dataset,df):
                         config={'responsive': True},
                         hovermode ='closest' ,
                         margin=dict(
-                                    l=50,
-                                    r=20,
+                                    l=60,
+                                    r=60,
                                     b=50,
                                     t=60,
                                     pad=.2
@@ -258,7 +258,7 @@ def return_figures(map_dataset,df):
                                          }
                                 },
                         showlegend=True,
-                        legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", size=12, color="black")),
+                        legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", autosize=True, color="black"), responsive=True),
 
                                         )
 
@@ -283,8 +283,8 @@ def return_figures(map_dataset,df):
                        config={'responsive': True},
                        hovermode ='closest' ,
                        margin=dict(
-                                   l=50,
-                                   r=20,
+                                   l=60,
+                                   r=60,
                                    b=50,
                                    t=60,
                                    pad=.2
@@ -301,7 +301,7 @@ def return_figures(map_dataset,df):
                                          }
                               },
                         showlegend=True,
-                        legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif", size=12, color="black")),
+                        legend=dict(x=0, y=1, bgcolor='rgba(0,0,0,0)',  font=dict( family="sans-serif",autosize=True, color="black"), responsive=True),
 
                         )
     # fifth chart
