@@ -35,6 +35,8 @@ To install the flask app, you need:
 Install the packages with
 
  * pip install -r requirements.txt
+ * To create an environment using: conda create --name <env> --file requirements.txt
+
 
 ## Installing
 
