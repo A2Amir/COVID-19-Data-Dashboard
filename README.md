@@ -130,9 +130,9 @@ On a MacOS/linux/Window system, installation is easy. Open a terminal, and go in
    
    Where my-app-name is a unique name that nobody else on Heroku has already used. The **heroku create** command should create a git repository on Heroku and a web address for accessing your web app. You can check that a remote repository was added to your git repository with the following terminal command:
     
-    git remote -v
+  	  git remote -v
    Next, you need to push your git repository to the remote heroku repository with this command:
    
-    git push heroku master
+   	 git push heroku master
        
  Now, you can type your web app's address in the browser to see the results.
