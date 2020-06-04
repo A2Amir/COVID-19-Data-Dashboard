@@ -122,8 +122,8 @@ On a MacOS/linux/Window system, installation is easy. Open a terminal, and go in
 
         git init
         git add .
-        git commit -m ‘first commit’
-   
+        git commit -m "initial commit"
+     
      Now, create a heroku app:
      
         heroku create my-app-name
