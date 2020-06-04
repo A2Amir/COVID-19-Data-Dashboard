@@ -1,8 +1,16 @@
 # COVID-19 Dashboard
 
 ## Link to Coronavirus API Data Dashboard:
-<center>dgfdsdsfdsfdsfdsfdsm</center>
 
+
+
+<table align="center">
+	<tr>
+		<td align="center" width="9999">
+			<h2>https://covidspreadout.herokuapp.com</h2>
+		</td>
+	</tr>
+</table>
 
 ## Introduction:
 
